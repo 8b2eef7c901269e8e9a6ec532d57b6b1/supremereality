@@ -1,0 +1,58 @@
+{% extends "adminpanel.html" %}
+
+{% block amenu %}
+<p class="menu-label">
+  General
+</p>
+<ul class="menu-list">
+  <li><a href="/admin">Overview</a></li>
+  <li><a href="/logout">Log Out</a></li>
+</ul>
+<p class="menu-label">
+  Website Settings
+</p>
+<ul class="menu-list">
+  <li><a href="/admin/sitename">Change Site Name</a></li>
+  <li><a href="/admin/ucreated">Dis/Allow User Created Topics</a></li>
+  <li><a href="/admin/news">Change News Blurb</a></li>
+  <li><a href="/admin/password">Change Admin Password</a></li>
+</ul>
+<p class="menu-label">
+  Topics
+</p>
+<ul class="menu-list">
+  <li><a class="is-active">Ban Topic</a></li>
+</ul>
+<p class="menu-label">
+  Users
+</p>
+<ul class="menu-list">
+  <li><a href="/admin/reports">Reports</a></li>
+</ul>
+{% endblock %}
+
+{% block acontent %}
+<form action="/admin/bantopicchange" method="POST" enctype="multipart/form-data">
+    <div class="content">
+        <p>Delete Topic including all related threads/posts and prevent name from being used for a new topic</p>
+    </div>
+    <div class="field is-grouped">
+        <div class="control">
+            <input class="input is-danger" type="text" minlength=1 maxlength=12 required name="topicnameb">
+        </div>
+        {{csrf|safe}}   
+        <div class="control">
+            <button type="submit" class="button is-danger is-light">🚫 Ban Topic</button>
+        </div>
+    </div>
+</form>
+<br>
+<div class="table-container">
+    <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+      <tr><th>Banned Topic Names (recent)</th></tr>
+      {% for el in btopics %}
+      <tr><td>{{el.topicname}}</td></tr>
+      {% endfor %}
+    </table>
+</div>
+{% endblock %}

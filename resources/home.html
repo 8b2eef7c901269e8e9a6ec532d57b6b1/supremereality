@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% include "navbar.html" %}
+  <div class="columns is-centered">
+      <div class="column is-half">
+          <section class="section">
+              <article class="message is-info">
+                  <div class="message-header">
+                    <p>News</p>
+                  </div>
+                  <div class="message-body">
+                        <small>
+                            {% safe %}
+                              {{sitenews|replace:[quote]:"<div class='box has-text-success has-text-weight-bold'>"|replace:[/quote]:"</div>"|replace:[red]:"<span class='has-text-danger has-text-weight-bold'>"|replace:[/red]:"</span>"|replace:[spoiler]:"<span class='spoiler'>"|replace:[/spoiler]:"</span>"|replace:[link]:"<a href='"|replace:[/link]:"' target='_blank'>"|replace:[/elink]:"</a>"|replace:[br]:"<br>"}}
+                            {% endsafe %}
+                        </small>
+                  </div>
+              </article>
+            <article class="message is-info">
+                <div class="message-header">
+                  <p>Topics [SFW]</p>
+                </div>
+                <div class="message-body">
+                    <nav class="breadcrumb" aria-label="breadcrumbs">
+                        <ul>
+                          {% for el in tnames %}
+                            <li><a href="/topic/{{el.topic}}/">{{el.topic}}</a></li>
+                          {% endfor %}
+                        </ul>
+                      </nav>
+                </div>
+            </article>
+              <article class="message is-info">
+                  <div class="message-header">
+                    <p>Recent Posts [SFW]</p>
+                  </div>
+                  <div class="message-body">
+                    <div class="has-text-centered">
+                        {% for x in rdata %}
+                        <div class="catalogtile">
+                            <h3>{{x.bdesc}}</h3>
+                            <a href="/thread/{{x.thid}}#{{x.pid}}">
+                              <div class="card-image">
+                                  <figure class="container">
+                                        <img class="tnail" alt="Thumbnail" src="/image/0/{{x.pid}}.{{x.attachmentonetype}}">
+                                  </figure>
+                              </div>
+                            </a>
+                            <div class="card-content">     
+                                <div class="content">
+                                  <strong>{{x.thread}}</strong>: 
+                                      <small>
+                                        {% safe %}
+                                          {{x.msg|replace:[quote]:"<div class='box has-text-success has-text-weight-bold'>"|replace:[/quote]:"</div>"|replace:[red]:"<span class='has-text-danger has-text-weight-bold'>"|replace:[/red]:"</span>"|replace:[spoiler]:"<span class='spoiler'>"|replace:[/spoiler]:"</span>"|replace:[link]:"<a href='"|replace:[/link]:"' target='_blank'>"|replace:[/elink]:"</a>"|replace:[br]:"<br>"}}
+                                        {% endsafe %}
+                                      </small>
+                                </div>
+                              </div>
+                          </div>
+                        {% endfor %}
+                    </div>
+                  </div>
+              </article>
+                <article class="message is-info">
+                    <div class="message-header">
+                      <p>Stats</p>
+                    </div>
+                    <div class="message-body">
+                        <nav class="level">
+                            <div class="level-item has-text-centered">
+                              <div>
+                                <p class="heading">Total Posts</p>
+                                <p class="title">{{sitestats.totalposts}}</p>
+                              </div>
+                            </div>
+                            <div class="level-item has-text-centered">
+                              <div>
+                                <p class="heading">Current Users</p>
+                                <p class="title">{{sitestats.currentusers}}</p>
+                              </div>
+                            </div>
+                            <div class="level-item has-text-centered">
+                              <div>
+                                <p class="heading">Active Content</p>
+                                <p class="title">{{sitestats.activecontent}}</p>
+                              </div>
+                            </div>
+                          </nav>
+                    </div>
+                </article>
+          </section>
+      </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends "adminpanel.html" %}
+
+{% block amenu %}
+<p class="menu-label">
+  General
+</p>
+<ul class="menu-list">
+  <li><a href="/admin">Overview</a></li>
+  <li><a href="/logout">Log Out</a></li>
+</ul>
+<p class="menu-label">
+  Website Settings
+</p>
+<ul class="menu-list">
+  <li><a href="/admin/sitename">Change Site Name</a></li>
+  <li><a href="/admin/ucreated">Dis/Allow User Created Topics</a></li>
+  <li><a class="is-active">Change News Blurb</a></li>
+  <li><a href="/admin/password">Change Admin Password</a></li>
+</ul>
+<p class="menu-label">
+  Topics
+</p>
+<ul class="menu-list">
+  <li><a href="/admin/bantopic">Ban Topic</a></li>
+</ul>
+<p class="menu-label">
+  Users
+</p>
+<ul class="menu-list">
+  <li><a href="/admin/reports">Reports</a></li>
+</ul>
+{% endblock %}
+
+{% block acontent %}
+<form action="/admin/newschange" method="POST" enctype="multipart/form-data">
+  <p class="has-text-danger">You must use explicit formatting marks here. Use [br] for new line, [link]https://www.url.com[/link]text[/elink] for hyperlinks. All other standard formatting marks apply (see: help)</p>
+    <div class="field">
+        <div class="control">
+            <textarea class="textarea is-danger" name="newnews">{{blurb}}</textarea>
+        </div>
+    </div>
+    {{csrf|safe}}   
+    <div class="field">
+      <div class="control">
+          <button type="submit" class="button is-danger">↻ Update News Blurb</button>
+      </div>
+    </div>
+</form>
+{% endblock %}

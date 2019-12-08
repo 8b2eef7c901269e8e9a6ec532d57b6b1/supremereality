@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Setup 3{% endblock %}
+{% block content %}
+{% include "navbar.html" %}
+<section class="section">
+    <div class="container">
+        <h3>Step 3/3</h3>
+        <progress class="progress is-primary" value="100" max="100">100%</progress>
+        <hr>
+    </div>
+    <div class="container">
+            <h1 class="title">
+              Congrats! You're done!
+            </h1>
+            <p class="subtitle">
+              Well... <strong>almost</strong>.
+            </p>
+    <div class="content">
+        <p>So your website is fully usable now, at least as far as the app itself goes. 
+            If you didn't set up nginx as a reverse proxy yet, then your website will be unencrypted and you won't be able to IP ban. 
+            For instructions on how to set up nginx for this purpose, refer back to the README. Good luck and happy posting
+        </p>
+        <p>- Jared</p>
+  </div>
+</section>
+{% endblock %}

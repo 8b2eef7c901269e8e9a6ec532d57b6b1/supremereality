@@ -1,0 +1,89 @@
+{% for el in pagedata %}
+<hr>
+    {% for x in el %}
+      <div class="box is-marginless {% cycle has-background-white-bis has-background-light %}">
+            <div class="content">
+                <small>
+                    <nav class="level">
+                      <div class="level-left">
+                          <div class="level-item">
+                              <div class="dropdown is-hoverable">
+
+                                  <div class="dropdown-trigger">
+                                      <span class="has-text-link">▶ </span>
+                                  </div>
+            
+                                  <div class="dropdown-menu" id="dropdown-menu" role="menu">
+            
+                                    <div class="dropdown-content">
+            
+                                      <a href="/report/{{topicname}}/{{x.thid}}/{{x.pid}}" class="dropdown-item">
+                                        Report
+                                      </a>
+            
+                                      <a href="/delete/{{x.pid}}" class="dropdown-item">
+                                        Delete Post
+                                      </a>
+            
+                                    </div>
+            
+                                  </div>
+            
+                                </div>
+                          </div>
+                          {% if forloop.first %}
+                          <div class="level-item">
+                          {% if x.newtop %}
+                          <span class="has-text-info has-text-weight-bold">♨ {{x.thread}} </span>
+                          {% else %}
+                          <span class="has-text-weight-bold">{{x.thread}} </span>
+                          {% endif %}
+                          </div>
+                          {% endif %}
+                          <div class="level-item">{{x.post_time|date:shortDateTime}}</div>
+                          <div class="level-item"><a href="/thread/{{x.thid}}#{{x.pid}}"><span class="has-text-weight-bold">#{{x.pid}}</span></a></div>
+                          {% if forloop.first %}
+                            {% if x.stickied %}
+                            <div class="level-item">📌</div>
+                            {% endif %}
+                            {% if x.locked %}
+                            <div class="level-item">🔒</div>
+                            {% else %}
+                            <div class="level-item"><a href="/thread/{{x.thid}}#bottom">↻</a></div>
+                            {% endif %}
+                          {% endif %}
+                      </div>
+                    </nav>
+                  </small>
+              </div>
+                {% if x.attachmentonetype|not-empty %}
+                  <figure class="image">
+                      <img class="tnail" alt="Thumbnail" {% if x.spoilered %} src="/coffee.png"{% else %} src="/thumb/{{x.pid}}.{{x.attachmentonetype}}"{% endif %}>
+                  </figure>
+                {% endif %}
+                <article>
+                  <div class="content">
+                    <p>
+                      {% safe %}
+                        {{x.msg|replace:[quote]:"<div class='box has-text-success has-text-weight-bold'>"|replace:[/quote]:"</div>"|replace:[red]:"<span class='has-text-danger has-text-weight-bold'>"|replace:[/red]:"</span>"|replace:[spoiler]:"<span class='spoiler'>"|replace:[/spoiler]:"</span>"|replace:[link]:"<a href='"|replace:[/link]:"'>"|replace:[/elink]:"</a>"|replace:[br]:"<br>"}}
+                      {% endsafe %}
+                    </p>
+                  </div>
+                </article>
+      </div>
+    {% endfor %}
+{% endfor %}
+<br>
+<nav class="breadcrumb is-centered" aria-label="breadcrumbs">
+    <ul>
+      <li> </li>
+      {% for el in tpages %}
+        {% ifequal el page %}
+        <li class="is-active"><a><strong>{{el}}</strong></a></li>
+        {% else %}
+        <li><a href="{{el}}">{{el}}</a></li>
+        {% endifequal %}
+      {% endfor %}
+      <li> </li>
+    </ul>
+  </nav>

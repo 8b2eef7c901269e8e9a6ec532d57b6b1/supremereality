@@ -1,0 +1,75 @@
+.spoiler {
+    background-color: black;
+    color: black;
+}
+
+.spoiler:hover {
+    background-color: transparent;
+}
+
+#pbar {
+    display: none;
+}
+
+.grow { transition: all .3s ease-out; transform-origin: left top; }
+.grow:hover { transform: scale(1.25); }
+
+.simg1 {
+    max-width: 220px;
+    z-index: 7;
+}
+.simg2 {
+    max-width: 220px;
+    z-index: 5;
+}
+.simg3 {
+    max-width: 220px;
+    z-index: 3;
+}
+
+.padd {
+    margin-top: 60px;
+}
+
+.spoilerimg {
+    opacity: 0.0;
+}
+
+.spoilercontainer {
+    border: 2px dashed hsl(204, 86%, 53%);
+}
+
+.spoilercontainer:hover {
+    border: none;
+}
+
+.spoilerimg:hover {
+    opacity: 1 !important;
+}
+
+.tnail {
+    max-height: 150px !important;
+    max-width: 150px !important;
+}
+
+.catalogtile {
+    width: 182px;
+    height: 320px;
+    overflow: hidden;
+    display: inline-block;
+    margin: 15px;
+}
+
+.nbar {
+    border-bottom: 1px solid grey;
+}
+
+hr {
+    border-color: hsl(204, 86%, 53%);
+    background-color: hsl(204, 86%, 53%);
+    color: hsl(204, 86%, 53%);
+}
+
+.bord {
+    border: 1px dashed hsl(204, 86%, 53%);
+}

@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Moderate Topic{% endblock %}
+{% block content %}
+{% include "navbar.html" %}
+<section class="section">
+        <div class="container">
+          <h1 class="title">
+            Moderator Login
+          </h1>
+        </div>
+</section>
+<section class="section">
+    <div class="container">
+            <form action="/auth/mod" method="post">                   
+              <div class="field is-grouped">
+                   <div class="control">
+                      <input class="input" placeholder="topic name" name="topicmodname" type="text" minlength="1" maxlength="50" required>
+                      <input class="input" placeholder="moderator password" name="modpwd" type="password" minlength="1" maxlength="50" required>
+                   </div>
+                  <input type="text" name="password_b" style="display:none !important" tabindex="-1" autocomplete="off" value="">
+                  {{csrf|safe}}
+                  <div class="control">
+                    <button class="button is-link">Submit</button>
+                  </div>
+              </div>
+          </form>
+    </div>
+
+</section>
+{% endblock %}

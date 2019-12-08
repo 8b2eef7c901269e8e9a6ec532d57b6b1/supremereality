@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block title %}Setup 2{% endblock %}
+{% block content %}
+{% include "navbar.html" %}
+<section class="section">
+    <div class="container">
+        <h3>Step 2/3</h3>
+        <progress class="progress is-primary" value="66" max="100">66%</progress>
+        <hr>
+    </div>
+    <div class="container">
+            <h1 class="title">
+              You're doing great!
+            </h1>
+            <p class="subtitle">
+              Now we're going to set up the site's <strong>core information</strong>!
+            </p>
+    <div class="content">
+        <p>You made it! Lucky you. Now that your DB tables are set up, 
+            it's time to ask you a few questions about what you want your site to be.
+        </p>
+  </div>
+  <form action="/setup/meta" method="post">
+  <div class="container">
+    <div class="field">
+      <label class="label">Website Name</label>
+      <div class="control">
+        <input class="input" type="text" name="sitename" minlength="1" maxlength="50" required>
+      </div>
+      <p class="help">What should this website be called? (50 chars max)</p>
+    </div>
+   
+    <div class="field">
+      <label class="label">Site Admin Password</label>
+      <div class="control">
+        <input class="input" type="password" name="sitepwd" placeholder="password" minlength="20" required>
+      </div>
+      <p class="help is-danger">DO NOT FORGET THIS (write it down, possibly in a password manager). Must be at least 20 characters long.</p>
+    </div>
+
+    <div class="field">
+      <label class="label">Topics</label>
+      <div class="control">
+        <label class="radio">
+          <input type="radio" name="utopics" value=true checked>
+          User-Created
+        </label>
+        <label class="radio">
+          <input type="radio" name="utopics" value=false>
+          Admin-Created only
+        </label>
+      </div>
+    </div>
+
+    {{csrf|safe}}
+      <div class="field is-grouped">
+        <div class="control">
+          <button class="button is-primary">Next→</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+</section>
+{% endblock %}

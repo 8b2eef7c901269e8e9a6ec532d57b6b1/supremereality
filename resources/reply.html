@@ -1,0 +1,129 @@
+<div class="columns is-centered">
+        <div class="column is-two-fifths">
+        <section class="section has-background-light bord">
+         <form action="/thread/reply" method="post" enctype="multipart/form-data" id="replyform">
+            <div class="container">
+                    <div class="field">
+                            <label class="label">Reply</label>
+                            <div class="control">
+                                <textarea class="textarea" name="threadbody" maxlength=5000 id="replybody" required></textarea>
+                            </div>
+                    </div>
+                    <div id="file-js-attachmentone" class="file has-name">
+                            <label class="file-label">
+                              <input class="file-input" type="file" name="attachmentone" accept=".png,.jpg,.jpeg,.gif,.webm,.pdf">
+                              <span class="file-cta">
+                                <span class="file-icon">
+                                  <i class="fas"></i>
+                                </span>
+                                <span class="file-label">
+                                  Upload File
+                                </span>
+                              </span>
+                              <span class="file-name"></span>
+                            </label>
+                          </div>
+                          <script>
+                                const fileInput = document.querySelector('#file-js-attachmentone input[type=file]');
+                                fileInput.onchange = () => {
+                                  if (fileInput.files.length > 0) {
+                                    const fileName = document.querySelector('#file-js-attachmentone .file-name');
+                                    fileName.textContent = (fileInput.files[0].name + " ");
+                                  } else {
+                                    const fileName = document.querySelector('#file-js-attachmentone .file-name');
+                                    fileName.textContent = " ";    
+                                  }
+                                }
+                         </script>
+                    <div id="file-js-attachmenttwo" class="file has-name">
+                            <label class="file-label">
+                            <input class="file-input" type="file" name="attachmenttwo" accept=".png,.jpg,.jpeg,.gif,.webm,.pdf">
+                            <span class="file-cta">
+                                <span class="file-icon">
+                                <i class="fas"></i>
+                                </span>
+                                <span class="file-label">
+                                Upload File
+                                </span>
+                            </span>
+                            <span class="file-name"></span>
+                            </label>
+                        </div>
+                        <script>
+                                const fileInput2 = document.querySelector('#file-js-attachmenttwo input[type=file]');
+                                fileInput2.onchange = () => {
+                                if (fileInput2.files.length > 0) {
+                                    const fileName = document.querySelector('#file-js-attachmenttwo .file-name');
+                                    fileName.textContent = (fileInput2.files[0].name + " ");
+                                }
+                                }
+                        </script>
+                    <div id="file-js-attachmentthree" class="file has-name">
+                            <label class="file-label">
+                            <input class="file-input" type="file" name="attachmentthree" accept=".png,.jpg,.jpeg,.gif,.webm,.pdf">
+                            <span class="file-cta">
+                                <span class="file-icon">
+                                <i class="fas"></i>
+                                </span>
+                                <span class="file-label">
+                                Upload File
+                                </span>
+                            </span>
+                            <span class="file-name"></span>
+                            </label>
+                        </div>
+                        <script>
+                                const fileInput3 = document.querySelector('#file-js-attachmentthree input[type=file]');
+                                fileInput3.onchange = () => {
+                                if (fileInput3.files.length > 0) {
+                                    const fileName = document.querySelector('#file-js-attachmentthree .file-name');
+                                    fileName.textContent = (fileInput3.files[0].name + " ");
+                                }
+                                }
+                        </script>
+                    <label class="checkbox">
+                            <br>
+                            <input type="checkbox" name="spoilered" value="true">
+                            <strong>spoiler(images)</strong>
+                    </label>
+
+                    <label class="checkbox">
+                            <br>
+                            <input type="checkbox" name="bumpthread" value="true" checked>
+                            <strong>bump thread</strong>
+                    </label>
+
+                    <label class="checkbox">
+                            <br>
+                            <input type="checkbox" required>
+                            I agree to the <a href="/terms" target="_blank">terms and conditions</a>
+                    </label>
+                    
+                    <input type="hidden" name="thid" value="{{thread-id}}">
+                    {{csrf|safe}}
+                    <input type="text" name="password_b" style="display:none !important" tabindex="-1" autocomplete="off" value="">
+                    <div class="field is-grouped is-grouped-centered" id="pbutton">
+                    <p class="control">
+                        <br>
+                            <button class="button is-primary">
+                              <strong>Post</strong>
+                            </button>
+                    </p></div>
+                    <div class="content has-text-centered" id="pbar">
+                        <br>
+                        <progress class="progress is-small is-primary" max="100">15%</progress>
+                        <p>Uploading...</p>
+                    </div>
+                    <script>
+                    document.getElementById("pbutton").addEventListener("click", function(){
+                        var valid = document.getElementById("replyform").checkValidity();
+                        if (valid){
+                                document.getElementById("pbutton").style.display = "none";
+                                document.getElementById("pbar").style.display = "block";
+                        }
+                      });
+                    </script>
+            </div>
+        </form>
+        </section>
+        </div></div>

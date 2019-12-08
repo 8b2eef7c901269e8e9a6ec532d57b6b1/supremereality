@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}/{{topicname}}/ - {{topicdesc}}{% endblock %}
+{% block content %}
+{% include "navbar2.html" %}
+<br><br>
+<div class="container has-text-centered">
+    <h3 class="title">/ {{topicname}} / - {{topicdesc}}</h3>
+    <br><br>
+</div>
+{% if banneduser %}
+{% include "postthread.html" %}
+{% else %}
+<div class="columns is-centered">
+  <div class="column is-two-fifths">
+    <article class="message is-warning">
+      <div class="message-header">
+        <h2>BANNED!</h2>
+      </div>
+      <div class="message-body">
+        You have been banned from posting in this topic until: {{bannedusertime|date:shortDate}}
+      </div>
+    </article>
+  </div>
+</div>
+{% endif %}
+{% include "topicthreads.html" %}
+<a name="bottom"></a>
+{% endblock %}

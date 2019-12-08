@@ -1,0 +1,46 @@
+{% extends "adminpanel.html" %}
+
+{% block amenu %}
+<p class="menu-label">
+  General
+</p>
+<ul class="menu-list">
+  <li><a href="/admin">Overview</a></li>
+  <li><a href="/logout">Log Out</a></li>
+</ul>
+<p class="menu-label">
+  Website Settings
+</p>
+<ul class="menu-list">
+  <li><a href="/admin/sitename">Change Site Name</a></li>
+  <li><a class="is-active">Dis/Allow User Created Topics</a></li>
+  <li><a href="/admin/news">Change News Blurb</a></li>
+  <li><a href="/admin/password">Change Admin Password</a></li>
+</ul>
+<p class="menu-label">
+  Topics
+</p>
+<ul class="menu-list">
+  <li><a href="/admin/bantopic">Ban Topic</a></li>
+</ul>
+<p class="menu-label">
+  Users
+</p>
+<ul class="menu-list">
+  <li><a href="/admin/reports">Reports</a></li>
+</ul>
+{% endblock %}
+
+{% block acontent %}
+<form action="/admin/ucreatedchange" method="POST" enctype="multipart/form-data">
+    <div class="content">
+        <p>User Board Creation: {{ucreatedtopics}}</p>
+    </div>
+    <div class="field is-grouped">
+        {{csrf|safe}}   
+        <div class="control">
+            <button type="submit" class="button is-danger">↻ Toggle Topic Creation</button>
+        </div>
+    </div>
+</form>
+{% endblock %}

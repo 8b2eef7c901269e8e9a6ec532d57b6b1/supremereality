@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+{% block title %}mod panel{% endblock %}
+{% block content %}
+{% include "navbar.html" %}
+<section class="section">
+        <div class="container">
+          <h1 class="title">
+            Topic Mod Panel
+          </h1>
+        </div>
+</section>
+<section class="section">
+    <div class="container">
+      <p class="has-text-danger has-text-weight-bold">
+        Welcome to the moderator panel. From here you can change the ban users, lock, sticky, or delete threads and/or delete individual posts. 
+        You can ban users by entering the POST ID of a post they have made.
+      </p>
+    </div>
+</section>
+<section class="section">
+<div class="container">
+        <form action="/mod/banuser" method="POST" enctype="multipart/form-data">
+            <p class="has-text-weight-bold">Ban User (enter post id)</p>
+            <div class="field is-grouped">
+              <div class="control">
+                <input class="input is-warning" type="text" placeholder="post id(#)" name="banneduser" pattern="[0-9]+" minlength="1" required>
+              </div>
+                <div class="select is-warning">
+                        <select name="banlength">
+                        <option value="2">2 Day ban</option>
+                        <option selected value="14">14 Day Ban</option>
+                        <option value="90">90 Day ban</option>
+                        </select>
+                    </div>
+              </div>
+              {{csrf|safe}}   
+              <div class="field">
+                <div class="control">
+                    <button type="submit" class="button is-warning">❌ Ban User (by Post)</button>
+                </div>
+              </div>
+          </form>
+          <br><br>
+          <form action="/mod/lockthread" method="POST" enctype="multipart/form-data">
+            <p class="has-text-weight-bold">Lock/Unlock Thread (enter thread id)</p>
+            <div class="field">
+              <div class="control">
+                <input class="input is-info" type="text" placeholder="thread id(#)" name="threadid" pattern="[0-9]+" minlength="1" required>
+              </div>
+            </div>
+              {{csrf|safe}}   
+              <div class="field">
+                <div class="control">
+                    <button type="submit" class="button is-info">🔒 Lock Thread</button>
+                </div>
+              </div>
+          </form>
+          <br><br>
+          <form action="/mod/stickythread" method="POST" enctype="multipart/form-data">
+            <p class="has-text-weight-bold">Sticky/Unsticky Thread (enter thread id)</p>
+            <div class="field">
+              <div class="control">
+                <input class="input is-primary" type="text" placeholder="thread id(#)" name="threadid" pattern="[0-9]+" minlength="1" required>
+              </div>
+            </div>
+              {{csrf|safe}}   
+              <div class="field">
+                <div class="control">
+                    <button type="submit" class="button is-primary">📌 Sticky Thread</button>
+                </div>
+              </div>
+          </form>
+          <br><br>
+          <form action="/mod/deletethread" method="POST" enctype="multipart/form-data">
+            <p class="has-text-weight-bold">Delete Thread (enter thread id)</p>
+            <div class="field">
+              <div class="control">
+                <input class="input is-danger" type="text" placeholder="thread id(#)" name="threadid" pattern="[0-9]+" minlength="1" required>
+              </div>
+            </div>
+              {{csrf|safe}}   
+              <div class="field">
+                <div class="control">
+                    <button type="submit" class="button is-danger">⚠️ Delete Thread</button>
+                </div>
+              </div>
+          </form>
+          <br><br>
+          <form action="/mod/deletepost" method="POST" enctype="multipart/form-data">
+            <p class="has-text-weight-bold">Delete Post (enter post id)</p>
+            <div class="field">
+              <div class="control">
+                <input class="input is-danger" type="text" placeholder="post id(#)" name="postid" pattern="[0-9]+" minlength="1" required>
+              </div>
+            </div>
+              {{csrf|safe}}   
+              <div class="field">
+                <div class="control">
+                    <button type="submit" class="button is-danger">⚠️ Delete Post</button>
+                </div>
+              </div>
+          </form>
+          <br><br>
+          <div class="field">
+              <div class="control">
+                <a class="button is-link" href="/logout">Log Out!</a>
+              </div>
+          </div>
+</div>
+</section>
+{% endblock %}

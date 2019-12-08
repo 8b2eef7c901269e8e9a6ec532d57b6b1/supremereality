@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}admin panel{% endblock %}
+{% block content %}
+{% include "navbar.html" %}
+<section class="section">
+        <div class="container">
+          <h1 class="title">
+            Admin Panel Login
+          </h1>
+          <p class="subtitle">
+            Change website settings and moderate topics
+          </p>
+        </div>
+</section>
+<section class="section">
+    <div class="container">
+            <form action="/auth/admin" method="post">                   
+              <div class="field is-grouped">
+                   <div class="control">
+                      <input class="input" placeholder="admin password" name="post-apwd" type="password" minlength="1" maxlength="50" required>
+                   </div>
+                  <input type="text" name="password_b" style="display:none !important" tabindex="-1" autocomplete="off" value="">
+                  {{csrf|safe}}
+                  <div class="control">
+                    <button class="button is-link">Submit</button>
+                  </div>
+              </div>
+          </form>
+    </div>
+
+</section>
+{% endblock %}

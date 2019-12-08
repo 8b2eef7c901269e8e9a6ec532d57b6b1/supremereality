@@ -1,0 +1,35 @@
+<hr>
+<div class="has-text-centered">
+{% for el in pagedata %}
+      {% for x in el %}
+      <div class="catalogtile">
+          <a href="/thread/{{x.thid}}">
+              {% if x.attachmentonetype|not-empty %}
+              <div class="card-image">
+                <figure class="container">
+                      <img class="tnail" alt="Thumbnail" {% if x.spoilered %} src="/coffee.png"{% else %} src="/thumb/{{x.pid}}.{{x.attachmentonetype}}"{% endif %}>
+                </figure>
+              </div>
+              {% else %}
+              <div>[ No Image ]</div>
+              {% endif %}
+          </a>
+              <div class="card-content">     
+                <div class="content">
+                      <span class="has-text-weight-bold has-text-info"><small>↻ {{x.replies}} 📷 {{x.imgcnt}}{% if x.stickied %} 📌{% endif %}{% if x.locked %} 🔒{% endif %}{% if x.newtop %}<br><span class="tag is-info is-light">♨ New</span> {% endif %}</small></span>
+                      <br>
+                      <span class="has-text-weight-bold">
+                        {{x.thread}}
+                      </span>
+                      <br>
+                      <small>
+                        {% safe %}
+                          {{x.msg|replace:[quote]:"<div class='box has-text-success has-text-weight-bold'>"|replace:[/quote]:"</div>"|replace:[red]:"<span class='has-text-danger has-text-weight-bold'>"|replace:[/red]:"</span>"|replace:[spoiler]:"<span class='spoiler'>"|replace:[/spoiler]:"</span>"|replace:[link]:"<a href='"|replace:[/link]:"'>"|replace:[/elink]:"</a>"|replace:[br]:"<br>"}}
+                        {% endsafe %}
+                      </small>
+                </div>
+              </div>
+      </div>
+    {% endfor %}
+{% endfor %}
+</div>

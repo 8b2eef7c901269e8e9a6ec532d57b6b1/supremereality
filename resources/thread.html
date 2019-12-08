@@ -1,0 +1,143 @@
+{% extends "base.html" %}
+{% block title %}{{threadname}}{% endblock %}
+{% block content %}
+{% include "navbar2.html" %}
+<br><br>
+<div class="container has-text-centered">
+    <h3 class="title">{{threadname}}</h3>
+</div>
+{% for x in tdata %}
+<a id="{{x.pid}}"></a>
+<div class="box padd {% cycle has-background-white-bis has-background-light %}">
+    <div class="content">
+        <p>
+            <div class="dropdown is-hoverable">
+                <div class="dropdown-trigger">
+                    <span class="has-text-link">▶ </span>
+                </div>
+                <div class="dropdown-menu" id="dropdown-menu" role="menu">
+                  <div class="dropdown-content">
+                    <a href="/report/{{topicname}}/{{thread-id}}/{{x.pid}}" class="dropdown-item">
+                      Report
+                    </a>
+                    <a href="/delete/{{x.pid}}" class="dropdown-item">
+                      Delete Post
+                    </a>
+                  </div>
+                </div>
+              </div>
+            <small>
+              {{x.post_time|date:shortDateTime}} <a onclick="document.getElementById('replybody').value += '>>{{x.pid}}'" href="#bottom"><span class="has-text-weight-bold">#{{x.pid}}</span></a>
+            <span class="tag is-warning">User: {{x.ipaddr|hash:sha512|abbr-ellipsis:""|abbreviate:7}}</span>
+            </small>
+        </p>
+      </div>
+      {% if any 
+        x.attachmentonetype|not-empty 
+        x.attachmentonewebm|not-empty 
+        x.attachmentonepdf|not-empty 
+        x.attachmenttwotype|not-empty 
+        x.attachmenttwowebm|not-empty 
+        x.attachmenttwopdf|not-empty 
+        x.attachmentthreetype|not-empty 
+        x.attachmentthreewebm|not-empty 
+        x.attachmentthreepdf|not-empty %}
+    <div class="columns">
+        <div class="column is-narrow">
+            {% if x.attachmentonetype|not-empty %}
+            {% if x.spoilered %}<p class="has-text-weight-bold has-text-info">content warning (image)</p>{% endif %}
+            <figure class="grow image simg1{% if x.spoilered %} spoilercontainer{% endif %}">
+                <img class="{% if x.spoilered %}spoilerimg{% endif %}" src="/image/0/{{x.pid}}.{{x.attachmentonetype}}" alt="Image">
+            </figure>
+           {% endif %}
+           {% if x.attachmentonewebm|not-empty %}
+           <figure class="image">
+               <video class="video-js vjs-theme-sea" width="320px" data-setup='{}' controls loop alt="Webm" poster="/coffee.png" preload="none">
+                  <source src="/webm/0/{{x.pid}}.webm" type="video/webm" /> 
+               </video>
+           </figure>
+          {% endif %}
+          {% if x.attachmentonepdf|not-empty %}
+          <figure class="image simg1">
+            <a href="/pdf/0/{{x.pid}}.pdf" target="_blank"><img src="/coffee.png" alt="pdf"></a>
+          </figure>
+         {% endif %}
+        </div>
+        <div class="column is-narrow">
+            {% if x.attachmenttwotype|not-empty %}
+            {% if x.spoilered %}<p class="has-text-weight-bold has-text-info">content warning (image)</p>{% endif %}
+            <figure class="grow image simg2{% if x.spoilered %} spoilercontainer{% endif %}">
+                <img class="{% if x.spoilered %}spoilerimg{% endif %}" src="/image/1/{{x.pid}}.{{x.attachmenttwotype}}" alt="Image">
+            </figure>
+           {% endif %}
+           {% if x.attachmenttwowebm|not-empty %}
+           <figure class="image">
+             <video class="video-js vjs-theme-sea" width="320px" data-setup='{}' controls loop alt="Webm" poster="/coffee.png" preload="none">
+                <source src="/webm/1/{{x.pid}}.webm" type="video/webm" /> 
+             </video>
+           </figure>
+          {% endif %}
+          {% if x.attachmenttwopdf|not-empty %}
+          <figure class="image simg2">
+            <a href="/pdf/1/{{x.pid}}.pdf" target="_blank"><img src="/coffee.png" alt="pdf"></a>
+          </figure>
+         {% endif %}
+        </div>
+        <div class="column is-narrow">
+            {% if x.attachmentthreetype|not-empty %}
+            {% if x.spoilered %}<p class="has-text-weight-bold has-text-info">content warning (image)</p>{% endif %}
+            <figure class="grow image simg3{% if x.spoilered %} spoilercontainer{% endif %}">
+                <img class="{% if x.spoilered %}spoilerimg{% endif %}" src="/image/2/{{x.pid}}.{{x.attachmentthreetype}}" alt="Image">
+            </figure>
+           {% endif %}
+           {% if x.attachmentthreewebm|not-empty %}
+           <figure class="image">
+            <video class="video-js vjs-theme-sea" width="320px" data-setup='{}' controls loop alt="Webm" poster="/coffee.png" preload="none">
+               <source src="/webm/2/{{x.pid}}.webm" type="video/webm" /> 
+            </video>
+          </figure>
+          {% endif %}
+          {% if x.attachmentthreepdf|not-empty %}
+          <figure class="image simg3">
+            <a href="/pdf/2/{{x.pid}}.pdf" target="_blank"><img src="/coffee.png" alt="pdf"></a>
+          </figure>
+         {% endif %}
+        </div>
+      </div>
+      {% endif %}
+    <article>
+        <div class="content">
+          <p>
+            {% safe %}
+              {{x.msg|replace:[quote]:"<div class='box has-text-success has-text-weight-bold'>"|replace:[/quote]:"</div>"|replace:[red]:"<span class='has-text-danger has-text-weight-bold'>"|replace:[/red]:"</span>"|replace:[spoiler]:"<span class='spoiler'>"|replace:[/spoiler]:"</span>"|replace:[link]:"<a href='"|replace:[/link]:"'>"|replace:[/elink]:"</a>"|replace:[br]:"<br>"}}
+            {% endsafe %}
+          </p>
+        </div>
+    </article>
+  </div>
+{% endfor %}
+<a name="bottom"></a>
+<br><br><br>
+{% if banneduser %}
+  {% if not threadlocked %}
+    {% include "reply.html" %}
+    {% else %}
+    <div class="container has-text-centered">
+    <p><span class="tag is-danger is-light is-medium">❌ THREAD LOCKED</span></p>
+  </div>
+  {% endif %}
+  {% else %}
+<div class="columns is-centered">
+  <div class="column is-two-fifths">
+    <article class="message is-warning">
+      <div class="message-header">
+        <h2>BANNED!</h2>
+      </div>
+      <div class="message-body">
+        You have been banned from posting in this topic until: {{bannedusertime|date:shortDate}}
+      </div>
+    </article>
+  </div>
+</div>
+{% endif %}
+{% endblock %}

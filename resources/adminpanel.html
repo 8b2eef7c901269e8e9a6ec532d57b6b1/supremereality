@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block title %}admin panel{% endblock %}
+{% block content %}
+{% include "navbar.html" %}
+<section class="section">
+        <div class="container">
+          <h1 class="title">
+            Admin Panel
+          </h1>
+          <p class="subtitle">
+            Change website settings and moderate topics
+          </p>
+        </div>
+</section>
+<section class="section">
+    <div class="container">
+<div class="columns">
+    <div class="column is-one-third">
+        <aside class="menu">
+            {% block amenu %}
+            <p class="menu-label">
+              General
+            </p>
+            <ul class="menu-list">
+              <li><a class="is-active">Overview</a></li>
+              <li><a href="/logout">Log Out</a></li>
+            </ul>
+            <p class="menu-label">
+              Website Settings
+            </p>
+            <ul class="menu-list">
+              <li><a href="/admin/sitename">Change Site Name</a></li>
+              <li><a href="/admin/ucreated">Dis/Allow User Created Topics</a></li>
+              <li><a href="/admin/news">Change News Blurb</a></li>
+              <li><a href="/admin/password">Change Admin Password</a></li>
+            </ul>
+            <p class="menu-label">
+              Topics
+            </p>
+            <ul class="menu-list">
+              <li><a href="/admin/bantopic">Ban Topic</a></li>
+            </ul>
+            <p class="menu-label">
+              Users
+            </p>
+            <ul class="menu-list">
+              <li><a href="/admin/reports">Reports</a></li>
+            </ul>
+            {% endblock %}
+          </aside>
+    </div>
+    <div class="column">
+      {% block acontent %}
+      <p class="has-text-danger has-text-weight-bold">
+        Welcome to the admin panel.<br><br> From here you can change the imageboard's name, enable/disable the ability of users to create their own topics, read reports, and ban topics. 
+        You can also change the announcement text "news" that appears on the home page of the website.
+      </p>
+      {% endblock %}
+    </div>
+  </div>
+</div>
+</section>
+{% endblock %}

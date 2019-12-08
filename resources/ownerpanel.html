@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block title %}topic owner panel{% endblock %}
+{% block content %}
+{% include "navbar.html" %}
+<section class="section">
+        <div class="container">
+          <h1 class="title">
+            Topic Owner Panel
+          </h1>
+        </div>
+</section>
+<section class="section">
+    <div class="container">
+      <p class="has-text-danger has-text-weight-bold">
+        Welcome to the topic owner panel. From here you can change both the owner and moderator passwords. 
+      </p>
+    </div>
+</section>
+<section class="section">
+<div class="container">
+          <form action="/owner/updatepassword" method="POST" enctype="multipart/form-data">
+            <p class="has-text-weight-bold">Update Owner Passord</p>
+            <div class="field">
+              <div class="control">
+                <input class="input is-info" type="password" placeholder="new owner password" name="opassword" minlength="1" required>
+              </div>
+            </div>
+              {{csrf|safe}}   
+              <div class="field">
+                <div class="control">
+                    <button type="submit" class="button is-info">🔄 Update Owner Password</button>
+                </div>
+              </div>
+          </form>
+          <br><br>
+          <form action="/owner/updatemodpassword" method="POST" enctype="multipart/form-data">
+            <p class="has-text-weight-bold">Update Mod Password</p>
+            <div class="field">
+              <div class="control">
+                <input class="input is-primary" type="password" placeholder="new moderator password" name="omodpassword" minlength="1" required>
+              </div>
+            </div>
+              {{csrf|safe}}   
+              <div class="field">
+                <div class="control">
+                    <button type="submit" class="button is-primary">🔄 Update Mod Password</button>
+                </div>
+              </div>
+          </form>
+          <br><br>
+          <div class="field">
+              <div class="control">
+                <a class="button is-link" href="/logout">Log Out!</a>
+              </div>
+          </div>
+</div>
+</section>
+{% endblock %}

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{% block title %}{{sitename}}{% endblock %}</title>
+        {% style "/bulma.min.css" %}
+        {% style "/style.css" %}
+        {% if videoplayer %}
+            {% style "/video-js.css" %}
+            <script src="/video.js"></script>
+        {% endif %}
+        {% block xtracss %}{% endblock %}
+        <script src="/custom.js"></script>
+        <link rel='shortcut icon' type="image/png" href='/favicon.png' />
+    </head>
+    <body>
+        {% block content %}content{% endblock %}
+    </body>
+    {% include "footer.html" %}
+</html> 

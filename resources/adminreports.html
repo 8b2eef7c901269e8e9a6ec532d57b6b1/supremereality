@@ -1,0 +1,78 @@
+{% extends "adminpanel.html" %}
+    {% block xtracss %}
+        {% style "/jquery.dataTables.min.css" %}
+        <script src="/jquery-3.4.1.min.js"></script>
+        <script src="/jquery.dataTables.min.js"></script>
+    {% endblock %}
+{% block amenu %}
+<p class="menu-label">
+  General
+</p>
+<ul class="menu-list">
+  <li><a href="/admin">Overview</a></li>
+  <li><a href="/logout">Log Out</a></li>
+</ul>
+<p class="menu-label">
+  Website Settings
+</p>
+<ul class="menu-list">
+  <li><a href="/admin/sitename">Change Site Name</a></li>
+  <li><a href="/admin/ucreated">Dis/Allow User Created Topics</a></li>
+  <li><a href="/admin/news">Change News Blurb</a></li>
+  <li><a href="/admin/password">Change Admin Password</a></li>
+</ul>
+<p class="menu-label">
+  Topics
+</p>
+<ul class="menu-list">
+  <li><a  href="/admin/bantopic">Ban Topic</a></li>
+</ul>
+<p class="menu-label">
+  Users
+</p>
+<ul class="menu-list">
+  <li><a class="is-active">Reports</a></li>
+</ul>
+{% endblock %}
+
+{% block acontent %}
+<div class="container">
+        <h2 class="title">
+          Monthly User Reports
+        </h2>
+      </div>
+<br>
+<div class="table-container">
+    <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth" id="reportstable">
+      <thead>
+      <tr>
+          <th>Report ID</th>
+          <th>Report Timestamp</th>
+          <th>Topic ID</th>
+          <th>Thread ID</th>
+          <th>Post ID</th>
+          <th>Link</th>
+      </tr>
+      </thead>
+      <tbody>
+      {% for el in greports %}
+      <tr>
+          <td>{{el.reportid}}</td>
+          <td>{{el.report_time|date:mediumDateTime}}</td>
+          <td>{{el.tid}}</td>
+          <td>{{el.thid}}</td>
+          <td>{{el.pid}}</td>
+          <td><a href="/thread/{{el.thid}}#{{el.pid}}">link➔</a></td>
+      </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+</div>
+<script>
+$(document).ready( function () {
+    $('#reportstable').DataTable( {
+    "order": [ 0, 'dsc' ]
+    } );
+} );
+</script>
+{% endblock %}
