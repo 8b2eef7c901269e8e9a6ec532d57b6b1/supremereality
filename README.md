@@ -1,6 +1,6 @@
-# supremereality
+# SupremeReality
 
-An imageboard written using Javascript, CSS (bulma), Clojure, and PostgreSQL.
+An imageboard written using Clojure, Javascript, Bulma.css and PostgreSQL.
 
 ## Usage
 
