@@ -1,4 +1,5 @@
 (ns supremereality.core
+  (:gen-class) 
   (:use [org.httpkit.server :only [run-server]])
   (:require [ring.util.http-response :as response]
             [ring.util.response :refer [resource-response]]
@@ -40,23 +41,22 @@
 
 ;;scheduled tasks
 (def my-pool (sched/mk-pool))
-(sched/interspaced 900000 #(reset-floodlist) my-pool) ;;time in ms, 900000 = every 15 mins - resets flood list
 
 ;;main program
-
 (defn -main []
-  (run-server
-    (-> #'handler
-        wrap-spamcheck
-        wrap-floodcheck
-        wrap-anti-forgery
-        wrap-session
-        wrap-params
-        wrap-multipart-params
-        wrap-restful-format
-        wrap-exception-handling)
-    {:port 3000
-    :join? false
-    :max-body 20000000}))
+  (do (sched/interspaced 900000 #(reset-floodlist) my-pool) ;;time in ms, 900000 = every 15 mins - resets flood list
+      (run-server
+       (-> #'handler
+           wrap-spamcheck
+           wrap-floodcheck
+           wrap-anti-forgery
+           wrap-session
+           wrap-params
+           wrap-multipart-params
+           wrap-restful-format
+           wrap-exception-handling)
+       {:port 3000
+        :join? false
+        :max-body 20000000})))
 
   ;;max-body = max POST upload size including files. 20mb default
