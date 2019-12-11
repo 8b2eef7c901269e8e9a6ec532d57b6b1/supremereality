@@ -46,6 +46,7 @@
   (compojure/POST "/mod/banuser" request mod-ban-handler)
   (compojure/POST "/mod/lockthread" request mod-lock-handler)
   (compojure/POST "/mod/stickythread" request mod-sticky-handler)
+  (compojure/POST "/mod/deletethread" request mod-del-thread-handler)
   (compojure/POST "/mod/deletepost" request mod-post-handler)
   (compojure/GET "/topics/admin" request owner-panel-handler)
   (compojure/POST "/auth/owner" request owner-auth-handler)

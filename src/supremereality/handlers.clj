@@ -338,6 +338,10 @@
   (let [pars (:multipart-params request)]
     (if (is-mod-authenticated request) (do (stickythread! (parse-int (get pars "threadid")) (get-mod-topic-auth request)) (response/see-other "/mod")) (response/see-other "/error"))))
 
+(defn mod-del-thread-handler [request]
+  (let [pars (:multipart-params request)]
+    (if (is-mod-authenticated request) (do (delthread! (parse-int (get pars "threadid")) (get-mod-topic-auth request)) (response/see-other "/mod")) (response/see-other "/error"))))
+
 (defn mod-post-handler [request]
   (let [pars (:multipart-params request)]
     (if (is-mod-authenticated request) 

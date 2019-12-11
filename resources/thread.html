@@ -8,7 +8,7 @@
 </div>
 {% for x in tdata %}
 <a id="{{x.pid}}"></a>
-<div class="box padd {% cycle has-background-white-bis has-background-light %}">
+<div class="padd2 is-shadowless {% if not forloop.first %}bord2 has-background-light{% else %} is-marginless{% endif %}">
     <div class="content">
         <p>
             <div class="dropdown is-hoverable">
@@ -109,7 +109,7 @@
         <div class="content">
           <p>
             {% safe %}
-              {{x.msg|replace:[quote]:"<div class='box has-text-success has-text-weight-bold'>"|replace:[/quote]:"</div>"|replace:[red]:"<span class='has-text-danger has-text-weight-bold'>"|replace:[/red]:"</span>"|replace:[spoiler]:"<span class='spoiler'>"|replace:[/spoiler]:"</span>"|replace:[link]:"<a href='"|replace:[/link]:"'>"|replace:[/elink]:"</a>"|replace:[br]:"<br>"}}
+              {{x.msg|replace:[quote]:"<div class='box has-text-success has-text-weight-bold has-background-grey-dark'>"|replace:[/quote]:"</div>"|replace:[red]:"<span class='has-text-danger has-text-weight-bold'>"|replace:[/red]:"</span>"|replace:[spoiler]:"<span class='spoiler'>"|replace:[/spoiler]:"</span>"|replace:[link]:"<a href='"|replace:[/link]:"'>"|replace:[/elink]:"</a>"|replace:[br]:"<br>"}}
             {% endsafe %}
           </p>
         </div>

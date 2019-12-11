@@ -27,10 +27,6 @@
     z-index: 3;
 }
 
-.padd {
-    margin-top: 60px;
-}
-
 .spoilerimg {
     opacity: 0.0;
 }
@@ -68,8 +64,26 @@ hr {
     border-color: hsl(204, 86%, 53%);
     background-color: hsl(204, 86%, 53%);
     color: hsl(204, 86%, 53%);
+    margin-left: 9px;
+    margin-right: 9px;
 }
 
 .bord {
-    border: 1px dashed hsl(204, 86%, 53%);
+    border: 1px solid hsl(204, 86%, 53%);
+}
+
+.bord2 {
+    border: 1px hsl(204, 86%, 53%);
+    border-style: solid;
+    margin-bottom: 3px;
+    margin-left: 30px;
+    margin-right: 10px;
+    border-radius: 5px;
+}
+
+.padd2 {
+    padding-top: 3px ;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 20px;
 }

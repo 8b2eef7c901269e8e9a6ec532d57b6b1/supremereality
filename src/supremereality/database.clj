@@ -444,6 +444,9 @@ limit 8"]))
 (defn stickythread! [threadid topicn]
   (jdbc/execute! db-spec ["update threads set stickied= NOT stickied where thid=? and topic=?" threadid (get-topic-id-from-topic topicn)]))
 
+(defn delthread! [threadid topicn]
+  (jdbc/execute! db-spec ["delete from threads where thid=? and topic=?" threadid (get-topic-id-from-topic topicn)]))
+
 (defn mod-deletepost! [postid]
   (jdbc/execute! db-spec ["update posts set msg='[red]⚠️ POST DELETED (MOD)[/red]',attachmentone=null,attachmenttwo=null,attachmentthree=null,attachmentonethumb=null,attachmenttwothumb=null,attachmentthreethumb=null,weight=1,attachmentonetype=null,attachmenttwotype=null,attachmentthreetype=null where pid=?" postid]))
 
