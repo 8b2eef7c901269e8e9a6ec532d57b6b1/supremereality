@@ -81,7 +81,7 @@
         {% ifequal el page %}
         <li class="is-active"><a><strong>{{el}}</strong></a></li>
         {% else %}
-        <li><a href="{{el}}">{{el}}</a></li>
+        <li><a class="has-text-warning" href="{{el}}">{{el}}</a></li>
         {% endifequal %}
       {% endfor %}
       <li> </li>

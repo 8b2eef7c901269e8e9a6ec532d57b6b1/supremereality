@@ -12,7 +12,7 @@ All notable changes to this project will be documented in this file.
 - Changed post background cycle to single shades of grey for better UX
 - fixed issues with license in project.clj
 
-## 0.1.2 - 2019-12-?? [Beta (Test) release 3]
+## 0.1.2 - 2019-12-1? [Beta (Test) release 3]
 - Fixed catalog tile misalignment in Safari
 - CSS changes to a dark/orange theme.
 - Some minor text changes on help, topic page, etc.
