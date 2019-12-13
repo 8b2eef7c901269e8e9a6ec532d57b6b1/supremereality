@@ -41,7 +41,7 @@
                           </div>
                           {% endif %}
                           <div class="level-item">{{x.post_time|date:shortDateTime}}</div>
-                          <div class="level-item"><a href="/thread/{{x.thid}}#{{x.pid}}"><span class="has-text-weight-bold">#{{x.pid}}</span></a></div>
+                          <div class="level-item"><a href="/thread/{{x.thid}}#{{x.pid}}"><span class="has-text-weight-bold has-text-warning">#{{x.pid}}</span></a></div>
                           {% if forloop.first %}
                             {% if x.stickied %}
                             <div class="level-item">📌</div>
@@ -49,7 +49,7 @@
                             {% if x.locked %}
                             <div class="level-item">🔒</div>
                             {% else %}
-                            <div class="level-item has-text-weight-bold"><a href="/thread/{{x.thid}}#bottom">↻ Reply</a></div>
+                            <div class="level-item has-text-weight-bold"><a class='has-text-warning' href="/thread/{{x.thid}}#bottom">↻ Reply</a></div>
                             {% endif %}
                           {% endif %}
                       </div>
@@ -65,7 +65,7 @@
                   <div class="content">
                     <p>
                       {% safe %}
-                        {{x.msg|replace:[quote]:"<div class='box has-text-success has-text-weight-bold has-background-grey-dark'>"|replace:[/quote]:"</div>"|replace:[red]:"<span class='has-text-danger has-text-weight-bold'>"|replace:[/red]:"</span>"|replace:[spoiler]:"<span class='spoiler'>"|replace:[/spoiler]:"</span>"|replace:[link]:"<a href='"|replace:[/link]:"'>"|replace:[/elink]:"</a>"|replace:[br]:"<br>"}}
+                        {{x.msg|replace:[quote]:"<div class='box has-text-success has-text-weight-bold has-background-grey-dark'>"|replace:[/quote]:"</div>"|replace:[red]:"<span class='has-text-danger has-text-weight-bold'>"|replace:[/red]:"</span>"|replace:[spoiler]:"<span class='spoiler'>"|replace:[/spoiler]:"</span>"|replace:[link]:"<a class='has-text-warning' href='"|replace:[/link]:"'>"|replace:[/elink]:"</a>"|replace:[br]:"<br>"}}
                       {% endsafe %}
                     </p>
                   </div>

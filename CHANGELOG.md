@@ -17,3 +17,5 @@ All notable changes to this project will be documented in this file.
 - CSS changes to a dark/orange theme.
 - Some minor text changes on help, topic page, etc.
 - Replies now no longer have a border
+- User ID's no longer in tag
+- Changed link color to orange

@@ -27,8 +27,7 @@
                 </div>
               </div>
             <small>
-              {{x.post_time|date:shortDateTime}} <a onclick="document.getElementById('replybody').value += '>>{{x.pid}}'" href="#bottom"><span class="has-text-weight-bold">#{{x.pid}}</span></a>
-            <span class="tag is-warning">User: {{x.ipaddr|hash:sha512|abbr-ellipsis:""|abbreviate:7}}</span>
+              <span class="has-text-weight-bold"> {{x.ipaddr|hash:sha512|abbr-ellipsis:""|abbreviate:7}} </span> {{x.post_time|date:shortDateTime}} <a class='has-text-warning' onclick="document.getElementById('replybody').value += '>>{{x.pid}}'" href="#bottom"><span class="has-text-weight-bold">#{{x.pid}}</span></a>
             </small>
         </p>
       </div>
@@ -109,7 +108,7 @@
         <div class="content">
           <p>
             {% safe %}
-              {{x.msg|replace:[quote]:"<div class='box has-text-success has-text-weight-bold has-background-grey-dark'>"|replace:[/quote]:"</div>"|replace:[red]:"<span class='has-text-danger has-text-weight-bold'>"|replace:[/red]:"</span>"|replace:[spoiler]:"<span class='spoiler'>"|replace:[/spoiler]:"</span>"|replace:[link]:"<a href='"|replace:[/link]:"'>"|replace:[/elink]:"</a>"|replace:[br]:"<br>"}}
+              {{x.msg|replace:[quote]:"<div class='box has-text-success has-text-weight-bold has-background-grey-dark'>"|replace:[/quote]:"</div>"|replace:[red]:"<span class='has-text-danger has-text-weight-bold'>"|replace:[/red]:"</span>"|replace:[spoiler]:"<span class='spoiler'>"|replace:[/spoiler]:"</span>"|replace:[link]:"<a class='has-text-warning' href='"|replace:[/link]:"'>"|replace:[/elink]:"</a>"|replace:[br]:"<br>"}}
             {% endsafe %}
           </p>
         </div>
