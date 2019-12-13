@@ -1,4 +1,4 @@
-<nav class="navbar is-fixed-top nbar role="navigation" aria-label="main navigation">
+<nav class="navbar is-fixed-top nbar is-black" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
       
           <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
@@ -10,34 +10,34 @@
       
         <div id="navbarBasicExample" class="navbar-menu">
           <div class="navbar-start">
-            <a class="navbar-item" href="/">
+            <a class="navbar-item has-text-warning" href="/">
               Home
             </a>
       
-            <a class="navbar-item" href="/topics">
+            <a class="navbar-item has-text-warning" href="/topics">
               Topics
             </a>
 
-            <a class="navbar-item" href="/help">
+            <a class="navbar-item has-text-warning" href="/help">
               Help
             </a>
           </div>
       
           <div class="navbar-end">
             {% block nav2 %}{% endblock %}
-              <div class="navbar-item has-dropdown is-hoverable">
-                  <div class="navbar-link">
+              <div class="navbar-item has-dropdown is-hoverable is-black">
+                  <div class="navbar-link has-text-warning">
                     Manage
                   </div>
           
-                  <div class="navbar-dropdown">
-                    <a class="navbar-item" href="/topics/mod">
+                  <div class="navbar-dropdown has-background-black-bis">
+                    <a class="navbar-item has-text-warning" href="/topics/mod">
                       Topic(mod)
                     </a>
-                    <a class="navbar-item" href="/topics/admin">
+                    <a class="navbar-item has-text-warning" href="/topics/admin">
                       Topic(owner)
                     </a>
-                    <a class="navbar-item" href="/admin">
+                    <a class="navbar-item has-text-warning" href="/admin">
                       Site
                     </a>
                   </div>

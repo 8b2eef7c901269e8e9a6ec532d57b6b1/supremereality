@@ -5,6 +5,7 @@
 
 .spoiler:hover {
     background-color: transparent;
+    color: hsl(0, 0%, 98%);
 }
 
 #pbar {
@@ -54,31 +55,30 @@
     overflow: hidden;
     display: inline-block;
     margin: 15px;
+    vertical-align: bottom;
 }
 
 .nbar {
-    border-bottom: 1px solid grey;
+    border-bottom: 1px solid hsl(48, 100%, 67%);
+    background-color: hsl(0, 0%, 14%);
 }
 
 hr {
-    border-color: hsl(204, 86%, 53%);
-    background-color: hsl(204, 86%, 53%);
-    color: hsl(204, 86%, 53%);
+    border-color: hsl(48, 100%, 67%);
+    background-color: hsl(48, 100%, 67%);
+    color: hsl(48, 100%, 67%);
     margin-left: 9px;
     margin-right: 9px;
 }
 
 .bord {
-    border: 1px solid hsl(204, 86%, 53%);
+    border: 1px dashed hsl(48, 100%, 67%);
 }
 
 .bord2 {
-    border: 1px hsl(204, 86%, 53%);
-    border-style: solid;
     margin-bottom: 3px;
     margin-left: 30px;
     margin-right: 10px;
-    border-radius: 5px;
 }
 
 .padd2 {
@@ -86,4 +86,29 @@ hr {
     padding-left: 20px;
     padding-right: 20px;
     padding-bottom: 20px;
+}
+
+body {
+    background-color: hsl(0, 0%, 7%);
+    color: hsl(0, 0%, 98%);
+}
+
+label {
+    color: hsl(0, 0%, 98%) !important;
+}
+
+h3.title {
+    color: hsl(0, 0%, 98%) !important;
+}
+
+h2.title {
+    color: hsl(0, 0%, 98%) !important;
+}
+
+h1.title {
+    color: hsl(0, 0%, 98%) !important;
+}
+
+p.subtitle {
+    color: hsl(0, 0%, 98%) !important;
 }

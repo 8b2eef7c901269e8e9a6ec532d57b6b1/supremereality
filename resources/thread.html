@@ -4,16 +4,16 @@
 {% include "navbar2.html" %}
 <br><br>
 <div class="container has-text-centered">
-    <h3 class="title">{{threadname}}</h3>
+    <h3 class="title has-text-white-bis">{{threadname}}</h3>
 </div>
 {% for x in tdata %}
 <a id="{{x.pid}}"></a>
-<div class="padd2 is-shadowless {% if not forloop.first %}bord2 has-background-light{% else %} is-marginless{% endif %}">
+<div class="padd2 is-shadowless {% if not forloop.first %}bord2 has-background-grey-darker{% else %} is-marginless{% endif %}">
     <div class="content">
         <p>
             <div class="dropdown is-hoverable">
                 <div class="dropdown-trigger">
-                    <span class="has-text-link">▶ </span>
+                    <span class="has-text-warning">▶ </span>
                 </div>
                 <div class="dropdown-menu" id="dropdown-menu" role="menu">
                   <div class="dropdown-content">
