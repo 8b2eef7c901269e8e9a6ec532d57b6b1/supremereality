@@ -268,7 +268,7 @@ I haven't made any breaking updates yet. If you don't mind redoing all of your o
 - delete app folder using `rm -rf supremereality`
 - git clone (this repo)
 - apply any options
-- update start shell script (the default .jar generated may have a different filename due to higher version, so you may have to chaneg execstart target slightly)
+- update start shell script (the default .jar generated may have a different filename due to higher version, so you may have to change execstart target slightly)
 
 ### Restart Service
 
