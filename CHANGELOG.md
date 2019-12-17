@@ -1,16 +1,12 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
-## 0.1.0 - 2019-12-08 [Beta (Test) release 1]
-- Initial release
-
-## 0.1.1 - 2019-12-10 [Beta (Test) release 2]
-- Fixed moderator "delete thread" functionality 404 error
-- Changed quoted text background to dark grey for better visibility
-- Changed index view and thread to show blue outline per post, with the exception of OP
-- Added identing for reply posts
-- Changed post background cycle to single shades of grey for better UX
-- fixed issues with license in project.clj
+## 0.1.3 - 2019-12-17 [Beta (Test) release 4]
+- Minor cosmetic fixes
+- Changed catalog/index views to be based on weight sum rather than average.
+- Fixed dark text issue on flood page and terms and conditions page
+- Updated Installation instructions
+- Updated setup page to force initial allowing of user-created topics
 
 ## 0.1.2 - 2019-12-13 [Beta (Test) release 3]
 - Fixed catalog tile misalignment in Safari
@@ -20,9 +16,13 @@ All notable changes to this project will be documented in this file.
 - User ID's no longer in tag
 - Changed link color to orange
 
-## 0.1.3 - 2019-12-17 [Beta (Test) release 4]
-- Minor cosmetic fixes
-- Changed catalog/index views to be based on weight sum rather than average.
-- Fixed dark text issue on flood page and terms and conditions page
-- Updated Installation instructions
-- Updated setup page to force initial allowing of user-created topics
+## 0.1.1 - 2019-12-10 [Beta (Test) release 2]
+- Fixed moderator "delete thread" functionality 404 error
+- Changed quoted text background to dark grey for better visibility
+- Changed index view and thread to show blue outline per post, with the exception of OP
+- Added identing for reply posts
+- Changed post background cycle to single shades of grey for better UX
+- fixed issues with license in project.clj
+
+## 0.1.0 - 2019-12-08 [Beta (Test) release 1]
+- Initial release
