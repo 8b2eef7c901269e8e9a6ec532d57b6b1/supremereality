@@ -321,7 +321,7 @@
 
 (defn get-threads-in-order [topicid page] 
     (let [os (* 10 page)]
-        (jdbc/query db-spec ["select x.thid from (select threads.thid, threads.stickied, threads.locked, avg(posts.weight) g from threads,posts where threads.thid=posts.thid and threads.topic=? group by threads.thid) x order by x.stickied desc, x.locked, x.g desc offset ? limit 10" topicid os])))
+        (jdbc/query db-spec ["select x.thid from (select threads.thid, threads.stickied, threads.locked, sum(posts.weight) g from threads,posts where threads.thid=posts.thid and threads.topic=? group by threads.thid) x order by x.stickied desc, x.locked, x.g desc offset ? limit 10" topicid os])))
 
 (defn get-topic-id-from-topic [topicname]
     (:tid (first (jdbc/query db-spec ["select tid from topics where topic=?" topicname]))))
@@ -333,7 +333,7 @@
     (:sitename (first (jdbc/query db-spec ["select sitename from meta"]))))
 
 (defn get-catalog-threads-in-order [topicid] 
-    (jdbc/query db-spec ["select threads.thid from threads,posts where threads.thid=posts.thid and threads.topic=? group by threads.thid order by threads.stickied desc, threads.locked, avg(posts.weight) desc" topicid]))
+    (jdbc/query db-spec ["select threads.thid from threads,posts where threads.thid=posts.thid and threads.topic=? group by threads.thid order by threads.stickied desc, threads.locked, sum(posts.weight) desc" topicid]))
 
 (defn get-catalog-thread [threadid]
     (jdbc/query db-spec ["select count(*) OVER (PARTITION BY threads.thid)-1 replies, 

@@ -19,3 +19,10 @@ All notable changes to this project will be documented in this file.
 - Replies now no longer have a border
 - User ID's no longer in tag
 - Changed link color to orange
+
+## 0.1.3 - 2019-12-?? [Beta (Test) release 4]
+- Minor cosmetic fixes
+- Changed catalog/index views to be based on weight sum rather than average.
+- Fixed dark text issue on flood page and terms and conditions page
+- Updated Installation instructions
+- Updated setup page to force initial allowing of user-created topics
