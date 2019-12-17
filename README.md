@@ -44,11 +44,11 @@ If so, disable it using:
 
 Set up the rules:
 
-`sudo ufw default deny incoming`
-`sudo ufw default allow outgoing`
-`sudo ufw allow ssh`
-`sudo ufw allow 'Nginx Full'`
-`sudo ufw allow 3000/tcp`
+```sudo ufw default deny incoming
+sudo ufw default allow outgoing
+sudo ufw allow ssh
+sudo ufw allow 'Nginx Full'
+sudo ufw allow 3000/tcp```
 
 Then enable it using:
 
@@ -62,10 +62,12 @@ There are some options you can and should set in the code before running it in p
 
 At the top of the file: src/database.clj, the default setup looks like this:
 
-```(def db-spec {:dbtype "postgresql"
-   :dbname "srdb"
-   :user "sruser"
-   :password "srpass"})```
+```
+(def db-spec {:dbtype "postgresql"
+    :dbname "srdb"
+    :user "sruser"
+    :password "srpass"})
+```
 
 You should change the schema, user, and password to whatever you've set it up to be in Postgres. 
 I'm not going to go over how to set up Postgres here as there are plenty of guides online on how to do this (use google).
