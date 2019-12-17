@@ -109,7 +109,7 @@ The default is 20000000 bytes which is equal to 20 megabytes. You can set this h
 
 - For obvious reasons please change any of these options before compiling. If you want to change them after, you will have to recompile for them to take effect.
 
-## Basic Example on Ubuntu 18.04 using upstart
+## Basic Example on Ubuntu 18.04
 
 NOTE: If you are using a different distribution of linux this part will be different! read the documentation!
 Placeholders like myimgboard, sampleuser, the execstart target should be substituted here depending on what you are calling your app/site
