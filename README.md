@@ -78,8 +78,10 @@ I'm not going to go over how to set up Postgres here as there are plenty of guid
 
 Under src/core.clj you will a line that says
 
-```;;UUID seed (gives your users a unique id, prefer a prime number)
-(def uuid-seed 15485857)```
+```
+;;UUID seed (gives your users a unique id, prefer a prime number)
+(def uuid-seed 15485857)
+```
 
 This is a seed that gives your users (mostly) unique per-user, per-thread ids.
 Please change this from the default to any other number, preferably prime number.
@@ -88,8 +90,10 @@ Please change this from the default to any other number, preferably prime number
 
 Also Under src/core.clj you will a line that says
 
-```;;time in between posts (in seconds)
-(def time2flood 20)```
+```
+;;time in between posts (in seconds)
+(def time2flood 20)
+```
 
 This is the time in seconds your users have to wait between posts globally. The default is 20 seconds.
 This is usually ok, but if you are having problems with bots/spammers you may want to set it higher.
@@ -112,7 +116,8 @@ Placeholders like myimgboard, sampleuser, the execstart target should be substit
 
 put a file similar to this at /etc/systemd/system/myimgboard.service
 
-```[Unit]
+```
+[Unit]
 Description=My Imageboard Service
 [Service]
 User=sampleuser
@@ -126,12 +131,15 @@ TimeoutStopSec=10
 Restart=on-failure
 RestartSec=5
 [Install]
-WantedBy=multi-user.target```
+WantedBy=multi-user.target
+```
 
 Create a shell script to run your jar (name it srstart or something - no need for a .sh extension)
 
-```#!/bin/sh
-sudo /usr/bin/java -jar /home/sampleuser/supremereality/target/supremereality-0.1.3-standalone.jar```
+```
+#!/bin/sh
+sudo /usr/bin/java -jar /home/sampleuser/supremereality/target/supremereality-0.1.3-standalone.jar
+```
 
 Give the jar executable permissions with:
 
@@ -139,9 +147,11 @@ Give the jar executable permissions with:
 
 Start the service
 
-```sudo systemctl daemon-reload
+```
+sudo systemctl daemon-reload
 sudo systemctl enable myimgboard.service
-sudo systemctl start myimgboard```
+sudo systemctl start myimgboard
+```
 
 Use the follow command to check to see that your service is running
 
@@ -160,7 +170,8 @@ Create the file at: /etc/nginx/sites-available/yoursite.com
 
 Example (similar to this):
 
-```server{
+```
+server{
   listen 80 default_server;
   listen [::]:80 default_server;            
   server_name localhost yoursite.com www.yoursite.com;
@@ -175,7 +186,8 @@ Example (similar to this):
     proxy_set_header X-Forwarded-Proto $scheme;
     proxy_redirect  off;
   }
-}```
+}
+```
 
 Then, you have to link it like this:
 
