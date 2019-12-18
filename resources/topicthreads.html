@@ -56,11 +56,41 @@
                     </nav>
                   </small>
               </div>
+              <div class="columns">
                 {% if x.attachmentonetype|not-empty %}
+                {% ifunequal x.attachmentonetype "pdf" %}
+                {% ifunequal x.attachmentonetype "webm" %}
+                <div class="column is-narrow">
                   <figure class="image">
-                      <img class="tnail" alt="Thumbnail" {% if x.spoilered %} src="/coffee.png"{% else %} src="/thumb/{{x.pid}}.{{x.attachmentonetype}}"{% endif %}>
+                      <img class="tnail2" alt="Thumbnail" {% if x.spoilered %} src="/coffee.png"{% else %} src="/thumbs/0/{{x.pid}}.{{x.attachmentonetype}}"{% endif %}>
                   </figure>
+                </div>
+                {% endifunequal %}
+                {% endifunequal %}
                 {% endif %}
+                {% if x.attachmenttwotype|not-empty %}
+                {% ifunequal x.attachmenttwotype "pdf" %}
+                {% ifunequal x.attachmenttwotype "webm" %}
+                <div class="column is-narrow">
+                <figure class="image">
+                    <img class="tnail2" alt="Thumbnail" {% if x.spoilered %} src="/coffee.png"{% else %} src="/thumbs/1/{{x.pid}}.{{x.attachmenttwotype}}"{% endif %}>
+                </figure>
+                </div>
+                {% endifunequal %}
+                {% endifunequal %}
+                {% endif %}
+                {% if x.attachmentthreetype|not-empty %}
+                {% ifunequal x.attachmentthreetype "pdf" %}
+                {% ifunequal x.attachmentthreetype "webm" %}
+                <div class="column is-narrow">
+                <figure class="image">
+                    <img class="tnail2" alt="Thumbnail" {% if x.spoilered %} src="/coffee.png"{% else %} src="/thumbs/2/{{x.pid}}.{{x.attachmentthreetype}}"{% endif %}>
+                </figure>
+                </div>
+                {% endifunequal %}
+                {% endifunequal %}
+                {% endif %}
+              </div>
                 <article>
                   <div class="content">
                     <p>

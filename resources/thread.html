@@ -45,8 +45,10 @@
         <div class="column is-narrow">
             {% if x.attachmentonetype|not-empty %}
             {% if x.spoilered %}<p class="has-text-weight-bold has-text-info">content warning (image)</p>{% endif %}
-            <figure class="grow image simg1{% if x.spoilered %} spoilercontainer{% endif %}">
-                <img class="{% if x.spoilered %}spoilerimg{% endif %}" src="/image/0/{{x.pid}}.{{x.attachmentonetype}}" alt="Image">
+            <figure class="image simg1{% if x.spoilered %} spoilercontainer{% endif %}">
+              <a href="/image/0/{{x.pid}}.{{x.attachmentonetype}}" target="_blank">
+                <img class="{% if x.spoilered %}spoilerimg{% endif %}" src="/thumbs/0/{{x.pid}}.{{x.attachmentonetype}}" alt="Image">
+              </a>
             </figure>
            {% endif %}
            {% if x.attachmentonewebm|not-empty %}
@@ -65,8 +67,10 @@
         <div class="column is-narrow">
             {% if x.attachmenttwotype|not-empty %}
             {% if x.spoilered %}<p class="has-text-weight-bold has-text-info">content warning (image)</p>{% endif %}
-            <figure class="grow image simg2{% if x.spoilered %} spoilercontainer{% endif %}">
-                <img class="{% if x.spoilered %}spoilerimg{% endif %}" src="/image/1/{{x.pid}}.{{x.attachmenttwotype}}" alt="Image">
+            <figure class="image simg2{% if x.spoilered %} spoilercontainer{% endif %}">
+              <a href="/image/1/{{x.pid}}.{{x.attachmenttwotype}}" target="_blank">
+                <img class="{% if x.spoilered %}spoilerimg{% endif %}" src="/thumbs/1/{{x.pid}}.{{x.attachmenttwotype}}" alt="Image">
+              </a>
             </figure>
            {% endif %}
            {% if x.attachmenttwowebm|not-empty %}
@@ -85,8 +89,10 @@
         <div class="column is-narrow">
             {% if x.attachmentthreetype|not-empty %}
             {% if x.spoilered %}<p class="has-text-weight-bold has-text-info">content warning (image)</p>{% endif %}
-            <figure class="grow image simg3{% if x.spoilered %} spoilercontainer{% endif %}">
-                <img class="{% if x.spoilered %}spoilerimg{% endif %}" src="/image/2/{{x.pid}}.{{x.attachmentthreetype}}" alt="Image">
+            <figure class="image simg3{% if x.spoilered %} spoilercontainer{% endif %}">
+                <a href="/image/2/{{x.pid}}.{{x.attachmentthreetype}}" target="_blank">
+                  <img class="{% if x.spoilered %}spoilerimg{% endif %}" src="/thumbs/2/{{x.pid}}.{{x.attachmentthreetype}}" alt="Image">
+                </a>
             </figure>
            {% endif %}
            {% if x.attachmentthreewebm|not-empty %}

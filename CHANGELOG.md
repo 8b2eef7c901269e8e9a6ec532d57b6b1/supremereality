@@ -1,6 +1,12 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## 0.1.4 - 2019-12-18 [Beta (Test) release 5]
+- Changed thumbnail functionality for faster page loading times
+- Images no longer expand on hover but open a full size version in a new tab when clicked.
+- All images, including replies, are now automatically thumbnailed (if possible).
+- Changed thumbnail resize method from bilinear to bicubic (higher quality)
+
 ## 0.1.3 - 2019-12-17 [Beta (Test) release 4]
 - Minor cosmetic fixes
 - Changed catalog/index views to be based on weight sum rather than average.

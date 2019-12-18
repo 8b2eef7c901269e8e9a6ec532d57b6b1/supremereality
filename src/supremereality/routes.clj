@@ -33,7 +33,7 @@
   (compojure/GET "/topic/:id{[a-zA-Z0-9]+}/:page{[0-9]+}" request topic-id-paginated-handler)
   (compojure/POST "/thread/new" request new-thread-handler)
   (compojure/GET "/image/:ordn{[0-2]}/:id{[0-9]+}.:ext" request serve-image-handler)
-  (compojure/GET "/thumb/:id{[0-9]+}.:ext" request serve-thumb-handler)
+  (compojure/GET "/thumbs/:ordn{[0-2]}/:id{[0-9]+}.:ext" request serve-thumbs-handler)
   (compojure/GET "/thread/:id{[0-9]+}" request serve-thread-handler)
   (compojure/GET "/webm/:ordn{[0-2]}/:id{[0-9]+}.:ext" request serve-webm-handler)
   (compojure/GET "/pdf/:ordn{[0-2]}/:id{[0-9]+}.:ext" request serve-pdf-handler)

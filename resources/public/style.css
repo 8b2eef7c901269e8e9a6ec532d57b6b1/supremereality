@@ -12,19 +12,16 @@
     display: none;
 }
 
-.grow { transition: all .3s ease-out; transform-origin: left top; }
-.grow:hover { transform: scale(1.25); }
-
 .simg1 {
-    max-width: 220px;
+    max-width: 150px;
     z-index: 7;
 }
 .simg2 {
-    max-width: 220px;
+    max-width: 150px;
     z-index: 5;
 }
 .simg3 {
-    max-width: 220px;
+    max-width: 150px;
     z-index: 3;
 }
 
@@ -49,8 +46,12 @@
     max-width: 150px !important;
 }
 
+.tnail2 {
+    max-width: 150px !important;
+}
+
 .catalogtile {
-    width: 182px;
+    width: 150px;
     height: 320px;
     overflow: hidden;
     display: inline-block;

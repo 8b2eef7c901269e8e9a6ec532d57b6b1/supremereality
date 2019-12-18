@@ -7,7 +7,7 @@
               {% if x.attachmentonetype|not-empty %}
               <div class="card-image">
                 <figure class="container">
-                      <img class="tnail" alt="Thumbnail" {% if x.spoilered %} src="/coffee.png"{% else %} src="/thumb/{{x.pid}}.{{x.attachmentonetype}}"{% endif %}>
+                      <img class="tnail" alt="Thumbnail" {% if x.spoilered %} src="/coffee.png"{% else %} src="/thumbs/0/{{x.pid}}.{{x.attachmentonetype}}"{% endif %}>
                 </figure>
               </div>
               {% else %}

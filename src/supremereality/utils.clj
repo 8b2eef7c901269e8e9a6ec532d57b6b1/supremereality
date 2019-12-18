@@ -41,7 +41,7 @@
                     (double ratio) (double ratio))
                     
                     transform-op (AffineTransformOp.
-                    scale AffineTransformOp/TYPE_BILINEAR)]
+                    scale AffineTransformOp/TYPE_BICUBIC)]
     (.filter transform-op img (BufferedImage. width height (.getType img)))))
 
 (def thumb-size 150)

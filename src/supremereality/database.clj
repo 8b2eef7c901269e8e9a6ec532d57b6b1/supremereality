@@ -252,6 +252,10 @@
 
 (defn thumbimg? [x] (jdbc/query db-spec ["SELECT attachmentonethumb dimg, attachmentonetype dtype from posts where pid=? and attachmentonethumb is not null" x]))
 
+(defn thumbimg1? [x] (jdbc/query db-spec ["SELECT attachmenttwothumb d2img, attachmenttwotype d2type from posts where pid=? and attachmenttwothumb is not null" x]))
+
+(defn thumbimg2? [x] (jdbc/query db-spec ["SELECT attachmentthreethumb d3img, attachmentthreetype d3type from posts where pid=? and attachmentthreethumb is not null" x]))
+
 (defn thread? [x] (jdbc/query db-spec ["select post_time, pid, msg, ?*?||ipaddr ipaddr, attachmentonetype, attachmenttwotype, attachmentthreetype, spoilered from posts where thid = ? order by pid" uuid-seed (parse-int x) (parse-int x)]))
 
 (defn threadname? [x] (jdbc/query db-spec ["select thread from threads where thid = ?" (parse-int x)]))
@@ -295,29 +299,54 @@
                                                             :ipaddr ipaddr 
                                                             :attachmentonetype (get-img-type (first attachmentvec)) 
                                                             :attachmentone (file->byte-array (:tempfile (first attachmentvec))) 
+                                                            :attachmentonethumb (if (and (not= (get-img-type (first attachmentvec)) "pdf") (not= (get-img-type (first attachmentvec)) "webm")) 
+                                                                                   (image->byte-array 
+                                                                                    (scale-image (:tempfile (first attachmentvec)) thumb-size) 
+                                                                                    (get-img-type (first attachmentvec))) 
+                                                                                    (file->byte-array (:tempfile (first attachmentvec))))
                                                             :attachmenttwotype (get-img-type (second attachmentvec)) 
                                                             :attachmenttwo (file->byte-array (:tempfile (second attachmentvec))) 
+                                                            :attachmenttwothumb (if (and (not= (get-img-type (second attachmentvec)) "pdf") (not= (get-img-type (second attachmentvec)) "webm"))
+                                                                                   (image->byte-array 
+                                                                                    (scale-image (:tempfile (second attachmentvec)) thumb-size) 
+                                                                                    (get-img-type (second attachmentvec))) 
+                                                                                    (file->byte-array (:tempfile (second attachmentvec)))) 
                                                             })
-            (= numattached 3) (jdbc/insert! db-spec :posts {:thid threadid 
-                                                                :msg (parse-msg msgbody) 
-                                                                :weight weight 
-                                                                :spoilered spoilered 
-                                                                :ipaddr ipaddr 
-                                                                :attachmentonetype (get-img-type (first attachmentvec)) 
-                                                                :attachmentone (file->byte-array (:tempfile (first attachmentvec))) 
-                                                                :attachmenttwotype (get-img-type (second attachmentvec)) 
-                                                                :attachmenttwo (file->byte-array (:tempfile (second attachmentvec))) 
-                                                                :attachmentthreetype (get-img-type (nth attachmentvec 2)) 
-                                                                :attachmentthree (file->byte-array (:tempfile (nth attachmentvec 2))) 
-                                                                })
+            (= numattached 3) (jdbc/insert! db-spec :posts {:thid threadid
+                                                            :msg (parse-msg msgbody)
+                                                            :weight weight
+                                                            :spoilered spoilered
+                                                            :ipaddr ipaddr
+                                                            :attachmentonetype (get-img-type (first attachmentvec))
+                                                            :attachmentone (file->byte-array (:tempfile (first attachmentvec)))
+                                                            :attachmentonethumb (if (and (not= (get-img-type (first attachmentvec)) "pdf") (not= (get-img-type (first attachmentvec)) "webm"))
+                                                                                  (image->byte-array
+                                                                                   (scale-image (:tempfile (first attachmentvec)) thumb-size)
+                                                                                   (get-img-type (first attachmentvec)))
+                                                                                  (file->byte-array (:tempfile (first attachmentvec))))
+                                                            :attachmenttwotype (get-img-type (second attachmentvec))
+                                                            :attachmenttwo (file->byte-array (:tempfile (second attachmentvec)))
+                                                            :attachmenttwothumb (if (and (not= (get-img-type (second attachmentvec)) "pdf") (not= (get-img-type (second attachmentvec)) "webm"))
+                                                                                  (image->byte-array
+                                                                                   (scale-image (:tempfile (second attachmentvec)) thumb-size)
+                                                                                   (get-img-type (second attachmentvec)))
+                                                                                  (file->byte-array (:tempfile (second attachmentvec))))
+                                                            :attachmentthreetype (get-img-type (nth attachmentvec 2))
+                                                            :attachmentthree (file->byte-array (:tempfile (nth attachmentvec 2)))
+                                                            :attachmentthreethumb (if (and (not= (get-img-type (nth attachmentvec 2)) "pdf") (not= (get-img-type (nth attachmentvec 2)) "webm"))
+                                                                                  (image->byte-array
+                                                                                   (scale-image (:tempfile (nth attachmentvec 2)) thumb-size)
+                                                                                   (get-img-type (nth attachmentvec 2)))
+                                                                                  (file->byte-array (:tempfile (nth attachmentvec 2))))
+                                                            })
             :else nil)))
 
 ;;paginated queries
 
 (defn get-paginated-thread [threadid]
-    (jdbc/query db-spec ["select * from ((select threads.thread, attachmentonetype, posts.thid, pid, post_time, msg, spoilered, threads.locked, threads.stickied, case when threads.thread_time > now () - INTERVAL '2 DAYS' then TRUE else FALSE end as newtop from posts,threads where threads.thid=posts.thid and threads.thid=? order by pid limit 1)
+    (jdbc/query db-spec ["select * from ((select threads.thread, attachmentonetype, attachmenttwotype, attachmentthreetype, posts.thid, pid, post_time, msg, spoilered, threads.locked, threads.stickied, case when threads.thread_time > now () - INTERVAL '2 DAYS' then TRUE else FALSE end as newtop from posts,threads where threads.thid=posts.thid and threads.thid=? order by pid limit 1)
                              union
-                             (select threads.thread, attachmentonetype, posts.thid, pid, post_time, msg, spoilered, threads.locked, threads.stickied, case when threads.thread_time > now () - INTERVAL '2 DAYS' then TRUE else FALSE end as newtop from posts,threads where threads.thid=posts.thid and threads.thid=? order by pid desc limit 5)) x order by x.pid" threadid threadid]))
+                             (select threads.thread, attachmentonetype, attachmenttwotype, attachmentthreetype, posts.thid, pid, post_time, msg, spoilered, threads.locked, threads.stickied, case when threads.thread_time > now () - INTERVAL '2 DAYS' then TRUE else FALSE end as newtop from posts,threads where threads.thid=posts.thid and threads.thid=? order by pid desc limit 5)) x order by x.pid" threadid threadid]))
 
 (defn get-threads-in-order [topicid page] 
     (let [os (* 10 page)]
@@ -365,6 +394,7 @@ where posts.thid=threads.thid
 and threads.topic=topics.tid
 and posts.spoilered=false
 and posts.attachmentone is not null
+and posts.attachmentonethumb is not null
 and posts.attachmentonetype <> 'webm'
 and posts.attachmentonetype <> 'pdf'
 and topics.sfw=true

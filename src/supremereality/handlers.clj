@@ -137,16 +137,31 @@
       )))))
 ;;thumbnail handler
 
-(defn serve-thumb-handler [request] 
+(defn serve-thumbs-handler [request]
   (let [pars (:params request)]
-    (let [iid (:id pars) fext (:ext pars)]
-      (let [data (first (thumbimg? (parse-int iid)))]
-        (let [imgd (:dimg data) typed (:dtype data)]
-        (if (and (not= typed "pdf") (not= typed "webm") (not= imgd nil)) 
-          {:status 200
-          :headers {"Content-Type" (str "image/" typed)}
-          :body (ByteArrayInputStream. imgd)} (response/see-other "/coffee.png"))
-        )))))
+    (let [iid (:id pars) fext (:ext pars) ordn (:ordn pars)]
+      (let [res (response/see-other "/coffee.png")]
+        (cond
+          (= ordn "0")  (let [data (first (thumbimg? (parse-int iid)))] (let [imgd (:dimg data) typed (:dtype data)]
+            (if (and (not= typed "pdf") (not= typed "webm") (not= imgd nil)) 
+              {:status 200
+              :headers {"Content-Type" (str "image/" typed)}
+              :body (ByteArrayInputStream. imgd)} res))) 
+          (= ordn "1")  (let [data (first (thumbimg1? (parse-int iid)))] (let [imgd (:d2img data) typed (:d2type data)]
+            (if (and (not= typed "pdf") (not= typed "webm") (not= imgd nil)) 
+              {:status 200
+              :headers {"Content-Type" (str "image/" typed)}
+              :body (ByteArrayInputStream. imgd)} nil))) 
+          (= ordn "2")  (let [data (first (thumbimg2? (parse-int iid)))] (let [imgd (:d3img data) typed (:d3type data)]
+            (if (and (not= typed "pdf") (not= typed "webm") (not= imgd nil)) 
+              {:status 200
+              :headers {"Content-Type" (str "image/" typed)}
+              :body (ByteArrayInputStream. imgd)} nil)))
+      )))))
+
+;;thumbhandler 2
+
+
 
 (defn serve-thread-handler [request]
 (let [pars (:params request)]
