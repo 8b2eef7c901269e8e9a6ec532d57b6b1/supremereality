@@ -3,7 +3,7 @@ All notable changes to this project will be documented in this file.
 
 ## 0.1.4 - 2019-12-18 [Beta (Test) release 5]
 - Changed thumbnail functionality for faster page loading times
-- Images no longer expand on hover but open a full size version in a new tab when clicked.
+- Images open a full size version in a new tab when clicked.
 - All images, including replies, are now automatically thumbnailed (if possible).
 - Changed thumbnail resize method from bilinear to bicubic (higher quality)
 

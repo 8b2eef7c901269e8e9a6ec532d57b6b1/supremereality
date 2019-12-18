@@ -113,3 +113,6 @@ h1.title {
 p.subtitle {
     color: hsl(0, 0%, 98%) !important;
 }
+
+.grow { transition: all .3s ease-out; transform-origin: left top; }
+.grow:hover { transform: scale(1.1); }
