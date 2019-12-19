@@ -118,129 +118,82 @@
 (defn boardinfo? [topicname] (:bdesc (first (jdbc/query db-spec ["select bdesc from topics where topic=?" topicname]))))
 
 (defn insert-new-thread
-([threadname topicname msgbody ipaddr spoiled wgt]
-    (jdbc/execute! db-spec ["WITH ins1 AS (
+  ([threadname topicname msgbody ipaddr spoiled wgt]
+   (jdbc/execute! db-spec ["WITH ins1 AS (
                             INSERT INTO threads(thread, topic)
                             VALUES (?, (SELECT tid FROM TOPICS WHERE topic = ?))
                             RETURNING thid AS threadid
                             ) INSERT INTO posts (thid, msg, ipaddr, spoilered, weight)
-                            VALUES ((select threadid from ins1),?,?,?,?)" (str threadname) (str topicname) (parse-msg (str msgbody)) (str ipaddr) (boolean spoiled) wgt]))
-([threadname topicname msgbody ipaddr spoiled wgt a1]
-    (let [ftype (get-img-type a1)]
-     (if (and (not= ftype "webm") (not= ftype "pdf")) 
-        (jdbc/execute! db-spec ["WITH ins1 AS (
+                            VALUES ((select threadid from ins1),?,?,?,?)" 
+                           (str threadname) 
+                           (str topicname) 
+                           (parse-msg (str msgbody)) 
+                           (str ipaddr) 
+                           (boolean spoiled) 
+                           wgt]))
+  ([threadname topicname msgbody ipaddr spoiled wgt a1]
+   (let [ftype (get-img-type a1)]
+       (jdbc/execute! db-spec ["WITH ins1 AS (
                             INSERT INTO threads(thread, topic)
                             VALUES (?, (SELECT tid FROM TOPICS WHERE topic = ?))
                             RETURNING thid AS threadid
                             ) INSERT INTO posts (thid, msg, ipaddr, spoilered, weight, attachmentonetype, attachmentone, attachmentonethumb)
-                            VALUES ((select threadid from ins1),?,?,?,?,?,?,?)" (str threadname) (str topicname) (parse-msg (str msgbody)) (str ipaddr) (boolean spoiled) wgt ftype (file->byte-array (:tempfile a1)) (image->byte-array (scale-image (:tempfile a1) thumb-size) ftype)])
-        (jdbc/execute! db-spec ["WITH ins1 AS (
-                            INSERT INTO threads(thread, topic)
-                            VALUES (?, (SELECT tid FROM TOPICS WHERE topic = ?))
-                            RETURNING thid AS threadid
-                            ) INSERT INTO posts (thid, msg, ipaddr, spoilered, weight, attachmentonetype, attachmentone)
-                            VALUES ((select threadid from ins1),?,?,?,?,?,?)" (str threadname) (str topicname) (parse-msg (str msgbody)) (str ipaddr) (boolean spoiled) wgt ftype (file->byte-array (:tempfile a1))])
-                            )))
-([threadname topicname msgbody ipaddr spoiled wgt a1 a2]
-    (let [ftype (get-img-type a1)
-          ftype2 (get-img-type a2)]
-     (cond (and (not= ftype "webm") (not= ftype "pdf") (not= ftype2 "webm") (not= ftype2 "pdf")) 
-        (jdbc/execute! db-spec ["WITH ins1 AS (
+                            VALUES ((select threadid from ins1),?,?,?,?,?,?,?)" 
+                               (str threadname) 
+                               (str topicname) 
+                               (parse-msg (str msgbody)) 
+                               (str ipaddr) 
+                               (boolean spoiled) 
+                               wgt 
+                               ftype 
+                               (file->byte-array (:tempfile a1)) 
+                               (thumbnail->img (:tempfile a1) ftype)])))
+  ([threadname topicname msgbody ipaddr spoiled wgt a1 a2]
+   (let [ftype (get-img-type a1)
+         ftype2 (get-img-type a2)]
+     (jdbc/execute! db-spec ["WITH ins1 AS (
                             INSERT INTO threads(thread, topic)
                             VALUES (?, (SELECT tid FROM TOPICS WHERE topic = ?))
                             RETURNING thid AS threadid
                             ) INSERT INTO posts (thid, msg, ipaddr, spoilered, weight, attachmentonetype, attachmentone, attachmentonethumb, attachmenttwotype, attachmenttwo, attachmenttwothumb)
-                            VALUES ((select threadid from ins1),?,?,?,?,?,?,?,?,?,?)" (str threadname) (str topicname) (parse-msg (str msgbody)) (str ipaddr) (boolean spoiled) wgt ftype (file->byte-array (:tempfile a1)) (image->byte-array (scale-image (:tempfile a1) thumb-size) ftype) ftype2 (file->byte-array (:tempfile a2)) (image->byte-array (scale-image (:tempfile a2) thumb-size) ftype2)])
-        
-        (and (or (= ftype "webm") (= ftype "pdf")) (and (not= ftype2 "webm") (not= ftype2 "pdf"))) 
-            (jdbc/execute! db-spec ["WITH ins1 AS (
-                INSERT INTO threads(thread, topic)
-                VALUES (?, (SELECT tid FROM TOPICS WHERE topic = ?))
-                RETURNING thid AS threadid
-                ) INSERT INTO posts (thid, msg, ipaddr, spoilered, weight, attachmentonetype, attachmentone, attachmenttwotype, attachmenttwo, attachmenttwothumb)
-                VALUES ((select threadid from ins1),?,?,?,?,?,?,?,?,?)" (str threadname) (str topicname) (parse-msg (str msgbody)) (str ipaddr) (boolean spoiled) wgt ftype (file->byte-array (:tempfile a1)) ftype2 (file->byte-array (:tempfile a2)) (image->byte-array (scale-image (:tempfile a2) thumb-size) ftype2)])
-        
-       (and (and (not= ftype "webm") (not= ftype "pdf")) (or (= ftype2 "webm") (= ftype2 "pdf")))
-            (jdbc/execute! db-spec ["WITH ins1 AS (
-                INSERT INTO threads(thread, topic)
-                VALUES (?, (SELECT tid FROM TOPICS WHERE topic = ?))
-                RETURNING thid AS threadid
-                ) INSERT INTO posts (thid, msg, ipaddr, spoilered, weight, attachmentonetype, attachmentone, attachmentonethumb, attachmenttwotype, attachmenttwo)
-                VALUES ((select threadid from ins1),?,?,?,?,?,?,?,?,?)" (str threadname) (str topicname) (parse-msg (str msgbody)) (str ipaddr) (boolean spoiled) wgt ftype (file->byte-array (:tempfile a1)) (image->byte-array (scale-image (:tempfile a1) thumb-size) ftype) ftype2 (file->byte-array (:tempfile a2))])
-       :else (jdbc/execute! db-spec ["WITH ins1 AS (
-                            INSERT INTO threads(thread, topic)
-                            VALUES (?, (SELECT tid FROM TOPICS WHERE topic = ?))
-                            RETURNING thid AS threadid
-                            ) INSERT INTO posts (thid, msg, ipaddr, spoilered, weight, attachmentonetype, attachmentone, attachmenttwotype, attachmenttwo)
-                            VALUES ((select threadid from ins1),?,?,?,?,?,?)" (str threadname) (str topicname) (parse-msg (str msgbody)) (str ipaddr) (boolean spoiled) wgt ftype (file->byte-array (:tempfile a1)) ftype2 (file->byte-array (:tempfile a2))])
-                            )))
-([threadname topicname msgbody ipaddr spoiled wgt a1 a2 a3]
-    (let [ftype (get-img-type a1)
-          ftype2 (get-img-type a2)
-          ftype3 (get-img-type a3)]
-     (cond (and (not= ftype "webm") (not= ftype "pdf") (not= ftype2 "webm") (not= ftype2 "pdf") (not= ftype3 "webm") (not= ftype3 "pdf")) 
-        (jdbc/execute! db-spec ["WITH ins1 AS (
+                            VALUES ((select threadid from ins1),?,?,?,?,?,?,?,?,?,?)" 
+                             (str threadname) 
+                             (str topicname) 
+                             (parse-msg (str msgbody)) 
+                             (str ipaddr) 
+                             (boolean spoiled) 
+                             wgt 
+                             ftype 
+                             (file->byte-array (:tempfile a1)) 
+                             (thumbnail->img (:tempfile a1) ftype) 
+                             ftype2 
+                             (file->byte-array (:tempfile a2)) 
+                             (thumbnail->img (:tempfile a2) ftype2)])
+     ))
+  ([threadname topicname msgbody ipaddr spoiled wgt a1 a2 a3]
+   (let [ftype (get-img-type a1)
+         ftype2 (get-img-type a2)
+         ftype3 (get-img-type a3)]
+     (jdbc/execute! db-spec ["WITH ins1 AS (
                             INSERT INTO threads(thread, topic)
                             VALUES (?, (SELECT tid FROM TOPICS WHERE topic = ?))
                             RETURNING thid AS threadid
                             ) INSERT INTO posts (thid, msg, ipaddr, spoilered, weight, attachmentonetype, attachmentone, attachmentonethumb, attachmenttwotype, attachmenttwo, attachmenttwothumb, attachmentthreetype, attachmentthree, attachmentthreethumb)
-                            VALUES ((select threadid from ins1),?,?,?,?,?,?,?,?,?,?,?,?,?)" (str threadname) (str topicname) (parse-msg (str msgbody)) (str ipaddr) (boolean spoiled) wgt ftype (file->byte-array (:tempfile a1)) (image->byte-array (scale-image (:tempfile a1) thumb-size) ftype) ftype2 (file->byte-array (:tempfile a2)) (image->byte-array (scale-image (:tempfile a2) thumb-size) ftype2) ftype3 (file->byte-array (:tempfile a3)) (image->byte-array (scale-image (:tempfile a3) thumb-size) ftype3)])
-        
-        (and (or (= ftype "webm") (= ftype "pdf")) (and (not= ftype2 "webm") (not= ftype2 "pdf")) (and (not= ftype3 "webm") (not= ftype3 "pdf"))) 
-            (jdbc/execute! db-spec ["WITH ins1 AS (
-                INSERT INTO threads(thread, topic)
-                VALUES (?, (SELECT tid FROM TOPICS WHERE topic = ?))
-                RETURNING thid AS threadid
-                ) INSERT INTO posts (thid, msg, ipaddr, spoilered, weight, attachmentonetype, attachmentone, attachmenttwotype, attachmenttwo, attachmenttwothumb, attachmentthreetype, attachmentthree, attachmentthreethumb)
-                VALUES ((select threadid from ins1),?,?,?,?,?,?,?,?,?,?,?,?)" (str threadname) (str topicname) (parse-msg (str msgbody)) (str ipaddr) (boolean spoiled) wgt ftype (file->byte-array (:tempfile a1)) ftype2 (file->byte-array (:tempfile a2)) (image->byte-array (scale-image (:tempfile a2) thumb-size) ftype2) ftype3 (file->byte-array (:tempfile a3)) (image->byte-array (scale-image (:tempfile a3) thumb-size) ftype3)])
-
-       (and (and (not= ftype "webm") (not= ftype "pdf")) (or (= ftype2 "webm") (= ftype2 "pdf")) (and (not= ftype3 "webm") (not= ftype3 "pdf")))
-            (jdbc/execute! db-spec ["WITH ins1 AS (
-                                    INSERT INTO threads(thread, topic)
-                                    VALUES (?, (SELECT tid FROM TOPICS WHERE topic = ?))
-                                    RETURNING thid AS threadid
-                                    ) INSERT INTO posts (thid, msg, ipaddr, spoilered, weight, attachmentonetype, attachmentone, attachmentonethumb, attachmenttwotype, attachmenttwo, attachmentthreetype, attachmentthree, attachmentthreethumb)
-                                    VALUES ((select threadid from ins1),?,?,?,?,?,?,?,?,?,?,?,?)" (str threadname) (str topicname) (parse-msg (str msgbody)) (str ipaddr) (boolean spoiled) wgt ftype (file->byte-array (:tempfile a1)) (image->byte-array (scale-image (:tempfile a1) thumb-size) ftype) ftype2 (file->byte-array (:tempfile a2)) ftype3 (file->byte-array (:tempfile a3)) (image->byte-array (scale-image (:tempfile a3) thumb-size) ftype3)]) 
-
-       (and (and (not= ftype "webm") (not= ftype "pdf")) (and (not= ftype2 "webm") (not= ftype2 "pdf")) (or (= ftype3 "webm") (= ftype3 "pdf"))) 
-            (jdbc/execute! db-spec ["WITH ins1 AS (
-                INSERT INTO threads(thread, topic)
-                VALUES (?, (SELECT tid FROM TOPICS WHERE topic = ?))
-                RETURNING thid AS threadid
-                ) INSERT INTO posts (thid, msg, ipaddr, spoilered, weight, attachmentonetype, attachmentone, attachmentonethumb, attachmenttwotype, attachmenttwo, attachmenttwothumb, attachmentthreetype, attachmentthree)
-                VALUES ((select threadid from ins1),?,?,?,?,?,?,?,?,?,?,?,?)" (str threadname) (str topicname) (parse-msg (str msgbody)) (str ipaddr) (boolean spoiled) wgt ftype (file->byte-array (:tempfile a1)) (image->byte-array (scale-image (:tempfile a1) thumb-size) ftype) ftype2 (file->byte-array (:tempfile a2)) (image->byte-array (scale-image (:tempfile a2) thumb-size) ftype2) ftype3 (file->byte-array (:tempfile a3))]) 
-
-       (and (or (= ftype "webm") (= ftype "pdf")) (and (not= ftype2 "webm") (not= ftype2 "pdf")) (or (= ftype3 "webm") (= ftype3 "pdf"))) 
-            (jdbc/execute! db-spec ["WITH ins1 AS (
-                INSERT INTO threads(thread, topic)
-                VALUES (?, (SELECT tid FROM TOPICS WHERE topic = ?))
-                RETURNING thid AS threadid
-                ) INSERT INTO posts (thid, msg, ipaddr, spoilered, weight, attachmentonetype, attachmentone, attachmenttwotype, attachmenttwo, attachmenttwothumb, attachmentthreetype, attachmentthree)
-                VALUES ((select threadid from ins1),?,?,?,?,?,?,?,?,?,?,?)" (str threadname) (str topicname) (parse-msg (str msgbody)) (str ipaddr) (boolean spoiled) wgt ftype (file->byte-array (:tempfile a1)) ftype2 (file->byte-array (:tempfile a2)) (image->byte-array (scale-image (:tempfile a2) thumb-size) ftype2) ftype3 (file->byte-array (:tempfile a3))]) 
-
-       (and (or (= ftype "webm") (= ftype "pdf")) (or (= ftype2 "webm") (= ftype2 "pdf")) (and (not= ftype3 "webm") (not= ftype3 "pdf")))
-        (jdbc/execute! db-spec ["WITH ins1 AS (
-            INSERT INTO threads(thread, topic)
-            VALUES (?, (SELECT tid FROM TOPICS WHERE topic = ?))
-            RETURNING thid AS threadid
-            ) INSERT INTO posts (thid, msg, ipaddr, spoilered, weight, attachmentonetype, attachmentone, attachmenttwotype, attachmenttwo, attachmentthreetype, attachmentthree, attachmentthreethumb)
-            VALUES ((select threadid from ins1),?,?,?,?,?,?,?,?,?,?,?)" (str threadname) (str topicname) (parse-msg (str msgbody)) (str ipaddr) (boolean spoiled) wgt ftype (file->byte-array (:tempfile a1)) ftype2 (file->byte-array (:tempfile a2)) ftype3 (file->byte-array (:tempfile a3)) (image->byte-array (scale-image (:tempfile a3) thumb-size) ftype3)]) 
-
-       (and (and (not= ftype "webm") (not= ftype "pdf")) (or (= ftype2 "webm") (= ftype2 "pdf")) (or (= ftype3 "webm") (= ftype3 "pdf")))
-            (jdbc/execute! db-spec ["WITH ins1 AS (
-                INSERT INTO threads(thread, topic)
-                VALUES (?, (SELECT tid FROM TOPICS WHERE topic = ?))
-                RETURNING thid AS threadid
-                ) INSERT INTO posts (thid, msg, ipaddr, spoilered, weight, attachmentonetype, attachmentone, attachmentonethumb, attachmenttwotype, attachmenttwo, attachmentthreetype, attachmentthree)
-                VALUES ((select threadid from ins1),?,?,?,?,?,?,?,?,?,?,?)" (str threadname) (str topicname) (parse-msg (str msgbody)) (str ipaddr) (boolean spoiled) wgt ftype (file->byte-array (:tempfile a1)) (image->byte-array (scale-image (:tempfile a1) thumb-size) ftype) ftype2 (file->byte-array (:tempfile a2)) ftype3 (file->byte-array (:tempfile a3))]) 
-
-       :else (jdbc/execute! db-spec ["WITH ins1 AS (
-                            INSERT INTO threads(thread, topic)
-                            VALUES (?, (SELECT tid FROM TOPICS WHERE topic = ?))
-                            RETURNING thid AS threadid
-                            ) INSERT INTO posts (thid, msg, ipaddr, spoilered, weight, attachmentonetype, attachmentone, attachmenttwotype, attachmenttwo, attachmentthreetype, attachmentthree)
-                            VALUES ((select threadid from ins1),?,?,?,?,?,?,?,?,?,?)" (str threadname) (str topicname) (parse-msg (str msgbody)) (str ipaddr) (boolean spoiled) wgt ftype (file->byte-array (:tempfile a1)) ftype2 (file->byte-array (:tempfile a2)) ftype3 (file->byte-array (:tempfile a3))])
-                            ))))
+                            VALUES ((select threadid from ins1),?,?,?,?,?,?,?,?,?,?,?,?,?)" 
+                             (str threadname) 
+                             (str topicname) 
+                             (parse-msg (str msgbody)) 
+                             (str ipaddr) 
+                             (boolean spoiled) 
+                             wgt 
+                             ftype 
+                             (file->byte-array (:tempfile a1)) 
+                             (thumbnail->img (:tempfile a1) ftype) 
+                             ftype2 
+                             (file->byte-array (:tempfile a2)) 
+                             (thumbnail->img (:tempfile a2) ftype2) 
+                             ftype3 (file->byte-array (:tempfile a3)) 
+                             (thumbnail->img (:tempfile a2) ftype3)]))))
 
 ;;more queries
 
@@ -289,7 +242,7 @@
                                                             :ipaddr ipaddr 
                                                             :attachmentonetype fttype 
                                                             :attachmentone (file->byte-array (:tempfile (first attachmentvec))) 
-                                                            :attachmentonethumb (image->byte-array (scale-image (:tempfile (first attachmentvec)) thumb-size) fttype)
+                                                            :attachmentonethumb (thumbnail->img (:tempfile (first attachmentvec)) fttype)
                                                             })
                                                             ))
             (= numattached 2) (jdbc/insert! db-spec :posts {:thid threadid 
@@ -300,16 +253,12 @@
                                                             :attachmentonetype (get-img-type (first attachmentvec)) 
                                                             :attachmentone (file->byte-array (:tempfile (first attachmentvec))) 
                                                             :attachmentonethumb (if (and (not= (get-img-type (first attachmentvec)) "pdf") (not= (get-img-type (first attachmentvec)) "webm")) 
-                                                                                   (image->byte-array 
-                                                                                    (scale-image (:tempfile (first attachmentvec)) thumb-size) 
-                                                                                    (get-img-type (first attachmentvec))) 
+                                                                                    (thumbnail->img (:tempfile (first attachmentvec)) (get-img-type (first attachmentvec))) 
                                                                                     (file->byte-array (:tempfile (first attachmentvec))))
                                                             :attachmenttwotype (get-img-type (second attachmentvec)) 
                                                             :attachmenttwo (file->byte-array (:tempfile (second attachmentvec))) 
                                                             :attachmenttwothumb (if (and (not= (get-img-type (second attachmentvec)) "pdf") (not= (get-img-type (second attachmentvec)) "webm"))
-                                                                                   (image->byte-array 
-                                                                                    (scale-image (:tempfile (second attachmentvec)) thumb-size) 
-                                                                                    (get-img-type (second attachmentvec))) 
+                                                                                    (thumbnail->img (:tempfile (second attachmentvec)) (get-img-type (second attachmentvec))) 
                                                                                     (file->byte-array (:tempfile (second attachmentvec)))) 
                                                             })
             (= numattached 3) (jdbc/insert! db-spec :posts {:thid threadid
@@ -320,23 +269,17 @@
                                                             :attachmentonetype (get-img-type (first attachmentvec))
                                                             :attachmentone (file->byte-array (:tempfile (first attachmentvec)))
                                                             :attachmentonethumb (if (and (not= (get-img-type (first attachmentvec)) "pdf") (not= (get-img-type (first attachmentvec)) "webm"))
-                                                                                  (image->byte-array
-                                                                                   (scale-image (:tempfile (first attachmentvec)) thumb-size)
-                                                                                   (get-img-type (first attachmentvec)))
+                                                                                  (thumbnail->img (:tempfile (first attachmentvec)) (get-img-type (first attachmentvec)))
                                                                                   (file->byte-array (:tempfile (first attachmentvec))))
                                                             :attachmenttwotype (get-img-type (second attachmentvec))
                                                             :attachmenttwo (file->byte-array (:tempfile (second attachmentvec)))
                                                             :attachmenttwothumb (if (and (not= (get-img-type (second attachmentvec)) "pdf") (not= (get-img-type (second attachmentvec)) "webm"))
-                                                                                  (image->byte-array
-                                                                                   (scale-image (:tempfile (second attachmentvec)) thumb-size)
-                                                                                   (get-img-type (second attachmentvec)))
+                                                                                  (thumbnail->img (:tempfile (second attachmentvec)) (get-img-type (second attachmentvec)))
                                                                                   (file->byte-array (:tempfile (second attachmentvec))))
                                                             :attachmentthreetype (get-img-type (nth attachmentvec 2))
                                                             :attachmentthree (file->byte-array (:tempfile (nth attachmentvec 2)))
                                                             :attachmentthreethumb (if (and (not= (get-img-type (nth attachmentvec 2)) "pdf") (not= (get-img-type (nth attachmentvec 2)) "webm"))
-                                                                                  (image->byte-array
-                                                                                   (scale-image (:tempfile (nth attachmentvec 2)) thumb-size)
-                                                                                   (get-img-type (nth attachmentvec 2)))
+                                                                                  (thumbnail->img (:tempfile (nth attachmentvec 2)) (get-img-type (nth attachmentvec 2)))
                                                                                   (file->byte-array (:tempfile (nth attachmentvec 2))))
                                                             })
             :else nil)))

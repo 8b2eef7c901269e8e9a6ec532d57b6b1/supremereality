@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file.
 - Images open a full size version in a new tab when clicked.
 - All images, including replies, are now automatically thumbnailed (if possible).
 - Changed thumbnail resize method from bilinear to bicubic (higher quality)
+- Fixed issued with certain GIF files erroring out on thumbnail (java ImageIO can't read certain gifs, so they aren't thumbnailed)
+- Refactored insert-new-thread function for better readability
 
 ## 0.1.3 - 2019-12-17 [Beta (Test) release 4]
 - Minor cosmetic fixes

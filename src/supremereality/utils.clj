@@ -47,17 +47,16 @@
 (def thumb-size 150)
 (def thumb-prefix "thumb_")
 
-(defn scale-image [file thumb-size]
-    (let [img (ImageIO/read file)
-          img-width (.getWidth img)
-          img-height (.getHeight img)
-          ratio (/ thumb-size img-height)]
-        (try 
-            (scale img ratio (int (* img-width ratio)) thumb-size)
-            (catch Exception e 
-                img)
-        )
-    ))
+(defn scale-image 
+  ([file thumb-size]
+  (let [img (ImageIO/read file)
+        img-width (.getWidth img)
+        img-height (.getHeight img)
+        ratio (/ thumb-size img-height)]
+    (try 
+      (scale img ratio (int (* img-width ratio)) thumb-size)
+      (catch Exception e 
+        img)))))
 
 (defn file->byte-array [x]
     (with-open [input (FileInputStream. x)
@@ -69,6 +68,11 @@
     (let [baos (ByteArrayOutputStream.)]
         (ImageIO/write image imgtype baos)
         (.toByteArray baos)))
+
+(defn thumbnail->img [file ftype]
+  (if (and (not= ftype "webm") (not= ftype "pdf"))
+    (try (image->byte-array (scale-image file thumb-size) ftype) (catch Exception e (file->byte-array file)))
+    nil))
 
 (defn get-img-type [rmap]
     (let [contenttype (:content-type rmap)]
