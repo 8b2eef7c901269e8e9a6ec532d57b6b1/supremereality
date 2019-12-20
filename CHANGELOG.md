@@ -8,6 +8,8 @@ All notable changes to this project will be documented in this file.
 - Added topic link formatting
 - Added ability for mods to spoiler content
 - Checkbox for 'agree to terms and conditions' is now automatically checked on replies
+- Fixed title on terms/privacy page
+- Updated generic terms and conditons
 
 ## 0.1.4 - 2019-12-18 [Beta (Test) release 5]
 - Changed thumbnail functionality for faster page loading times
