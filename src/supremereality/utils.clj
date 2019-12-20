@@ -132,7 +132,7 @@
     (str/replace msg #"((https://)(www[.]){0,1}[-a-zA-Z0-9]+[.]([.a-zA-Z]){2,64}[^\s]*)" "[link]$1[/link]$1[/elink]"))
 
 (defn parse-shortq [msg]
-    (str/replace msg #"((>)(.*)[\n\r])" "[quote]$3[/quote]"))
+    (str/replace msg #"((\s+)(>)([^>]*)[\n\r])" "[quote]$4[/quote]"))
 
 (defn parse-shortr [msg]
   (str/replace msg #"((==)(.*)(==))" "[red]$3[/red]"))
@@ -149,7 +149,7 @@
 (defn parse-quote [msg]
   (str/replace msg #">>([0-9]+)" "[link]#$1[/link]>>$1[/elink]"))
 
-(defn parse-msg [msg] (parse-newline (parse-url (escape-html (parse-quote (parse-shortsp (parse-shortr (parse-shortq (parse-shorttp msg)))))))))
+(defn parse-msg [msg] (parse-newline (parse-url (escape-html (parse-quote (parse-shortsp (parse-shortr (parse-shorttp msg))))))))
 
 (defn get-mod-pwd [reqmap]
   (get (:form-params reqmap) "modpwd"))
