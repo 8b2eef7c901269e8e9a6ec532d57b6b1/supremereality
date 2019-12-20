@@ -86,6 +86,21 @@
               </div>
           </form>
           <br><br>
+          <form action="/mod/spoilerpost" method="POST" enctype="multipart/form-data">
+            <p class="has-text-weight-bold">Spoiler Post Images (enter post id)</p>
+            <div class="field">
+              <div class="control">
+                <input class="input is-warning" type="text" placeholder="post id(#)" name="postid" pattern="[0-9]+" minlength="1" required>
+              </div>
+            </div>
+              {{csrf|safe}}   
+              <div class="field">
+                <div class="control">
+                    <button type="submit" class="button is-warning">❗Spoiler Post Images</button>
+                </div>
+              </div>
+          </form>
+          <br><br>
           <form action="/mod/deletepost" method="POST" enctype="multipart/form-data">
             <p class="has-text-weight-bold">Delete Post (enter post id)</p>
             <div class="field">

@@ -364,6 +364,13 @@
         (do (mod-deletepost! (parse-int (get pars "postid"))) (response/see-other "/mod")) 
         (response/ok (selmer/render-file "modfail.html" {})) ) (response/see-other "/error"))))
 
+(defn mod-spoiler-handler [request]
+  (let [pars (:multipart-params request)]
+    (if (is-mod-authenticated request)
+      (if (mod-can-del-post? (parse-int (get pars "postid")) (get-topic-id-from-topic (get-mod-topic-auth request)))
+        (do (mod-spoilerpost! (parse-int (get pars "postid"))) (response/see-other "/mod"))
+        (response/ok (selmer/render-file "modfail.html" {}))) (response/see-other "/error"))))
+
 (defn owner-panel-handler [request]
   (if 
    (is-owner-authenticated request) 

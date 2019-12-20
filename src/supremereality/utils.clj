@@ -131,13 +131,25 @@
 (defn parse-url [msg]
     (str/replace msg #"((https://)(www[.]){0,1}[-a-zA-Z0-9]+[.]([.a-zA-Z]){2,64}[^\s]*)" "[link]$1[/link]$1[/elink]"))
 
+(defn parse-shortq [msg]
+    (str/replace msg #"((>)(.*)[\n\r])" "[quote]$3[/quote]"))
+
+(defn parse-shortr [msg]
+  (str/replace msg #"((==)(.*)(==))" "[red]$3[/red]"))
+
+(defn parse-shortsp [msg]
+  (str/replace msg #"((\*\*)(.*)(\*\*))" "[spoiler]$3[/spoiler]"))
+
+(defn parse-shorttp [msg]
+  (str/replace msg #"((>>>/)(.*)(/))" "[link]/topic/$3/[/link]>>>/$3/[/elink]"))
+
 (defn parse-newline [msg]
     (str/replace msg #"(\n)" "[br]"))
 
 (defn parse-quote [msg]
   (str/replace msg #">>([0-9]+)" "[link]#$1[/link]>>$1[/elink]"))
 
-(defn parse-msg [msg] (parse-newline (parse-url (escape-html (parse-quote msg)))))
+(defn parse-msg [msg] (parse-newline (parse-url (escape-html (parse-quote (parse-shortsp (parse-shortr (parse-shortq (parse-shorttp msg)))))))))
 
 (defn get-mod-pwd [reqmap]
   (get (:form-params reqmap) "modpwd"))

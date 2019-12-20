@@ -1,6 +1,14 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## 0.1.5 - 2019-12-20 [Beta (Test) release 6]
+- Fixed issue with long words, esp. hyperlinks breaking resposive on mobile resolutions
+- Updated quotes to use a custom class instead of bulma box (remove rounded edges, shadows)
+- Added shortcut formatting marks
+- Added topic link formatting
+- Added ability for mods to spoiler content
+- Checkbox for 'agree to terms and conditions' is now automatically checked on replies
+
 ## 0.1.4 - 2019-12-18 [Beta (Test) release 5]
 - Changed thumbnail functionality for faster page loading times
 - Images open a full size version in a new tab when clicked.

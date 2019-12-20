@@ -12,7 +12,7 @@
                   <div class="message-body">
                         <small>
                             {% safe %}
-                              {{sitenews|replace:[quote]:"<div class='box has-text-success has-text-weight-bold has-background-grey-dark'>"|replace:[/quote]:"</div>"|replace:[red]:"<span class='has-text-danger has-text-weight-bold'>"|replace:[/red]:"</span>"|replace:[spoiler]:"<span class='spoiler'>"|replace:[/spoiler]:"</span>"|replace:[link]:"<a href='"|replace:[/link]:"' target='_blank'>"|replace:[/elink]:"</a>"|replace:[br]:"<br>"}}
+                              {{sitenews|replace:[quote]:"<div class='padd3 has-text-success has-text-weight-bold has-background-grey-dark'>"|replace:[/quote]:"</div>"|replace:[red]:"<span class='has-text-danger has-text-weight-bold'>"|replace:[/red]:"</span>"|replace:[spoiler]:"<span class='spoiler'>"|replace:[/spoiler]:"</span>"|replace:[link]:"<a href='"|replace:[/link]:"' target='_blank'>"|replace:[/elink]:"</a>"|replace:[br]:"<br>"}}
                             {% endsafe %}
                         </small>
                   </div>
@@ -52,7 +52,7 @@
                                   <strong>{{x.thread}}</strong>: 
                                       <small>
                                         {% safe %}
-                                          {{x.msg|replace:[quote]:"<div class='box has-text-success has-text-weight-bold has-background-grey-dark'>"|replace:[/quote]:"</div>"|replace:[red]:"<span class='has-text-danger has-text-weight-bold'>"|replace:[/red]:"</span>"|replace:[spoiler]:"<span class='spoiler'>"|replace:[/spoiler]:"</span>"|replace:[link]:"<a id='"|replace:[/link]:"'>"|replace:[/elink]:"</a>"|replace:[br]:"<br>"}}
+                                          {{x.msg|replace:[quote]:"<div class='padd3 has-text-success has-text-weight-bold has-background-grey-dark'>"|replace:[/quote]:"</div>"|replace:[red]:"<span class='has-text-danger has-text-weight-bold'>"|replace:[/red]:"</span>"|replace:[spoiler]:"<span class='spoiler'>"|replace:[/spoiler]:"</span>"|replace:[link]:"<a id='"|replace:[/link]:"'>"|replace:[/elink]:"</a>"|replace:[br]:"<br>"}}
                                         {% endsafe %}
                                       </small>
                                 </div>

@@ -436,3 +436,6 @@ limit 8"]))
 
 (defn is-user-banned? [ipaddr tid]
   (:endban (first (jdbc/query db-spec ["select max(ban_end_time) endban from bans where ipaddr=? and ban_end_time > Now() and tid=?" ipaddr tid]))))
+
+(defn mod-spoilerpost! [postid]
+  (jdbc/execute! db-spec ["update posts set spoilered=true where pid=?" postid]))

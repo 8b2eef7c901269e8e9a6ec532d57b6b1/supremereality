@@ -48,6 +48,7 @@
   (compojure/POST "/mod/stickythread" request mod-sticky-handler)
   (compojure/POST "/mod/deletethread" request mod-del-thread-handler)
   (compojure/POST "/mod/deletepost" request mod-post-handler)
+  (compojure/POST "/mod/spoilerpost" request mod-spoiler-handler)
   (compojure/GET "/topics/admin" request owner-panel-handler)
   (compojure/POST "/auth/owner" request owner-auth-handler)
   (compojure/GET "/owner" request owner-handler)
