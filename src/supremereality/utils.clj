@@ -131,9 +131,6 @@
 (defn parse-url [msg]
     (str/replace msg #"((https://)(www[.]){0,1}[-a-zA-Z0-9]+[.]([.a-zA-Z]){2,64}[^\s]*)" "[link]$1[/link]$1[/elink]"))
 
-(defn parse-shortq [msg]
-    (str/replace msg #"((\s+)(>)([^>]*)[\n\r])" "[quote]$4[/quote]"))
-
 (defn parse-shortr [msg]
   (str/replace msg #"((==)(.*)(==))" "[red]$3[/red]"))
 
