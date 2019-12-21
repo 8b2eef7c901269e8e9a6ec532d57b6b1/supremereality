@@ -193,7 +193,7 @@
                              (file->byte-array (:tempfile a2)) 
                              (thumbnail->img (:tempfile a2) ftype2) 
                              ftype3 (file->byte-array (:tempfile a3)) 
-                             (thumbnail->img (:tempfile a2) ftype3)]))))
+                             (thumbnail->img (:tempfile a3) ftype3)]))))
 
 ;;more queries
 

@@ -1,6 +1,9 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## 0.1.6 - 2019-12-21 [Beta (Test) release 7]
+- Fixed bug with triple image insert's third thumbnail being broken
+
 ## 0.1.5 - 2019-12-20 [Beta (Test) release 6]
 - Fixed issue with long words, esp. hyperlinks breaking resposive on mobile resolutions
 - Updated quotes to use a custom class instead of bulma box (remove rounded edges, shadows)
