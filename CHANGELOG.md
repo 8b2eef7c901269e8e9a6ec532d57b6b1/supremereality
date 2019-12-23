@@ -1,6 +1,15 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## 0.1.7 - 2019-12-22
+- Software no longer considered beta test
+- Reports now are automatically deleted after 30 days
+- Changed thread order in index and catalog to traditional latest reply bump mechanic
+- Reports now go to a secondary page and use post instead of get
+- Thread and index layout changed. Post score now displayed per post
+- Thread indexes/catalogs now capped at 350 threads
+- Implented single carrot quotes
+
 ## 0.1.6 - 2019-12-21 [Beta (Test) release 7]
 - Fixed bug with triple image insert's third thumbnail being broken
 

@@ -8,6 +8,14 @@
     color: hsl(0, 0%, 98%);
 }
 
+.spoiler2 span{
+    visibility: hidden;
+}
+
+.spoiler2:hover span{
+    visibility: visible;
+}
+
 #pbar {
     display: none;
 }

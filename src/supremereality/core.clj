@@ -48,15 +48,15 @@
       (run-server
        (-> #'handler
            wrap-spamcheck
-           wrap-floodcheck
            wrap-anti-forgery
            wrap-session
            wrap-params
            wrap-multipart-params
            wrap-restful-format
-           wrap-exception-handling)
+           wrap-floodcheck
+           )
        {:port 3000
         :join? false
         :max-body 20000000})))
-
+;wrap-exception-handling
   ;;max-body = max POST upload size including files. 20mb default          

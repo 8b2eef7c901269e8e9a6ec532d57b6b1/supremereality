@@ -91,7 +91,8 @@
                                 BEGIN
                                     update threads set locked=true where thid in (select z.thid from 
                                     (select threads.thid, count(posts.pid) pcnt from threads, posts where posts.thid = threads.thid and threads.locked <> true group by threads.thid) z where z.pcnt > 500);
-                                    DELETE FROM THREADS WHERE THREAD_TIME < NOW() - INTERVAL '14 DAYS' and stickied <> true;
+                                    DELETE FROM THREADS WHERE THREAD_TIME < NOW() - INTERVAL '14 DAYS' and stickied <> true; 
+                                    DELETE FROM reports WHERE report_time < NOW () - INTERVAL '30 DAYS';
                                     RETURN NEW;
                                 END;
                                 $BODY$
@@ -116,6 +117,16 @@
 
 (defn adminpwd? [] (:apwd (first (jdbc/query db-spec ["SELECT apwd FROM meta LIMIT 1"]))))
 (defn boardinfo? [topicname] (:bdesc (first (jdbc/query db-spec ["select bdesc from topics where topic=?" topicname]))))
+
+(defn prune-topic! [tid]
+  (jdbc/execute! db-spec ["delete from threads where threads.thid in 
+(select threads.thid
+from threads,posts
+where threads.thid=posts.thid
+and threads.topic=(SELECT tid FROM TOPICS WHERE topic = ?)
+group by threads.thid
+order by max (post_time) desc
+offset 350)" (str tid)]))
 
 (defn insert-new-thread
   ([threadname topicname msgbody ipaddr spoiled wgt]
@@ -209,7 +220,7 @@
 
 (defn thumbimg2? [x] (jdbc/query db-spec ["SELECT attachmentthreethumb d3img, attachmentthreetype d3type from posts where pid=? and attachmentthreethumb is not null" x]))
 
-(defn thread? [x] (jdbc/query db-spec ["select post_time, pid, msg, ?*?||ipaddr ipaddr, attachmentonetype, attachmenttwotype, attachmentthreetype, spoilered from posts where thid = ? order by pid" uuid-seed (parse-int x) (parse-int x)]))
+(defn thread? [x] (jdbc/query db-spec ["select post_time, pid, msg, ?*?||ipaddr ipaddr, attachmentonetype, attachmenttwotype, attachmentthreetype, spoilered, COALESCE(weight,0) qscore from posts where thid = ? order by pid" uuid-seed (parse-int x) (parse-int x)]))
 
 (defn threadname? [x] (jdbc/query db-spec ["select thread from threads where thid = ?" (parse-int x)]))
 
@@ -293,7 +304,7 @@
 
 (defn get-threads-in-order [topicid page] 
     (let [os (* 10 page)]
-        (jdbc/query db-spec ["select x.thid from (select threads.thid, threads.stickied, threads.locked, sum(posts.weight) g from threads,posts where threads.thid=posts.thid and threads.topic=? group by threads.thid) x order by x.stickied desc, x.locked, x.g desc offset ? limit 10" topicid os])))
+        (jdbc/query db-spec ["select x.thid from (select threads.thid, threads.stickied, threads.locked, max(posts.post_time) g from threads,posts where threads.thid=posts.thid and threads.topic=? group by threads.thid) x order by x.stickied desc, x.locked, x.g desc offset ? limit 10" topicid os])))
 
 (defn get-topic-id-from-topic [topicname]
     (:tid (first (jdbc/query db-spec ["select tid from topics where topic=?" topicname]))))
@@ -305,7 +316,7 @@
     (:sitename (first (jdbc/query db-spec ["select sitename from meta"]))))
 
 (defn get-catalog-threads-in-order [topicid] 
-    (jdbc/query db-spec ["select threads.thid from threads,posts where threads.thid=posts.thid and threads.topic=? group by threads.thid order by threads.stickied desc, threads.locked, sum(posts.weight) desc" topicid]))
+    (jdbc/query db-spec ["select threads.thid from threads,posts where threads.thid=posts.thid and threads.topic=? group by threads.thid order by threads.stickied desc, threads.locked, max(posts.post_time) desc" topicid]))
 
 (defn get-catalog-thread [threadid]
     (jdbc/query db-spec ["select count(*) OVER (PARTITION BY threads.thid)-1 replies, 

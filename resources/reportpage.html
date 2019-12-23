@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Report{% endblock %}
+{% block content %}
+<section class="section">
+        <div class="container">
+          <h1 class="title is-size-1 has-text-warning">
+            Report
+          </h1>
+          <p class="subtitle">
+            Would you like to report this post for violating the terms and conditions and/or topic-specific rules?
+          </p>
+          <br>Topic: /{{topicname}}/ ({{topicid}})
+          <br>Thread: {{threadid}}
+          <br>Post: {{postid}}
+        </div>
+        <br>
+        <div class="container">
+            <form action="/submitreport" method="post" enctype="multipart/form-data">
+                <input type="text" readonly name="topicid" value="{{topicid}}" class="is-invisible">
+                <input type="text" readonly name="threadid" value="{{threadid}}" class="is-invisible">
+                <input type="text" readonly name="postid" value="{{postid}}" class="is-invisible">
+                {{csrf|safe}}
+                <input type="text" name="password_b" style="display:none !important" tabindex="-1" autocomplete="off" value="">
+                <br>
+                <button class="button is-warning">
+                    <strong>Report</strong>
+                </button>
+            </form>
+        </div>
+</section>
+{% endblock %}

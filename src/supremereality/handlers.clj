@@ -102,13 +102,13 @@
           (let [numattached (num-non-empty-attachments attachment1 attachment2 attachment3)
                 attachmentvec (non-empty-attachments attachment1 attachment2 attachment3)]
                (cond
-                 (= numattached 0) (do 
+                 (= numattached 0) (do (prune-topic! (get pars "btopicname")) 
                   (insert-new-thread (get pars "threadtitle") (get pars "btopicname") (get pars "threadbody") ip (contains? pars "spoilered") (weight-calc (get pars "threadbody"))) (response/see-other (str "/topic/" (get pars "btopicname") "/")))
-                 (= numattached 1) (do 
+                 (= numattached 1) (do (prune-topic! (get pars "btopicname")) 
                   (insert-new-thread (get pars "threadtitle") (get pars "btopicname") (get pars "threadbody") ip (contains? pars "spoilered") (weight-calc (get pars "threadbody")) (first attachmentvec)) (response/see-other (str "/topic/" (get pars "btopicname") "/")))
-                 (= numattached 2) (do 
+                 (= numattached 2) (do (prune-topic! (get pars "btopicname")) 
                   (insert-new-thread (get pars "threadtitle") (get pars "btopicname") (get pars "threadbody") ip (contains? pars "spoilered") (weight-calc (get pars "threadbody")) (first attachmentvec) (second attachmentvec)) (response/see-other (str "/topic/" (get pars "btopicname") "/")))
-                 (= numattached 3) (do 
+                 (= numattached 3) (do (prune-topic! (get pars "btopicname")) 
                   (insert-new-thread (get pars "threadtitle") (get pars "btopicname") (get pars "threadbody") ip (contains? pars "spoilered") (weight-calc (get pars "threadbody")) (first attachmentvec) (second attachmentvec) (nth attachmentvec 2)) (response/see-other (str "/topic/" (get pars "btopicname") "/")))
                  :else (response/see-other "/error"))))))
 
@@ -161,14 +161,21 @@
 
 ;;thumbhandler 2
 
-
-
 (defn serve-thread-handler [request]
 (let [pars (:params request)]
   (let [tdata (thread? (:id pars))]
   (if (> (:tc (first (thread-count? (:id pars)))) 0) 
   (response/ok
-    (selmer/render-file "thread.html" {:banneduser (nil? (is-user-banned? (get-client-ip request) (get-topic-from-thread (:id pars)))) :bannedusertime (is-user-banned? (get-client-ip request) (get-topic-from-thread (:id pars))) :videoplayer true :threadlocked (threadlocked? (:id pars)) :tdata (filt-thread tdata) :topicid (get-topic-from-thread (:id pars)) :topicname (get-topic-name-from-topic (get-topic-from-thread (:id pars))) :csrf (anti-forgery/anti-forgery-field) :threadname (:thread (first (threadname? (:id pars)))) :indexlink (str "/topic/" (:topic (first (get-cata-link? (:id pars)))) "/0") :catalink (str "/topic/" (:topic (first (get-cata-link? (:id pars)))) "/catalog") :thread-id (:id pars)})) nil))))
+    (selmer/render-file "thread.html" {:banneduser (nil? (is-user-banned? (get-client-ip request) (get-topic-from-thread (:id pars)))) 
+                                       :bannedusertime (is-user-banned? (get-client-ip request) (get-topic-from-thread (:id pars))) 
+                                       :videoplayer true :threadlocked (threadlocked? (:id pars)) 
+                                       :tdata (filt-thread tdata) :topicid (get-topic-from-thread (:id pars)) 
+                                       :topicname (get-topic-name-from-topic (get-topic-from-thread (:id pars))) 
+                                       :csrf (anti-forgery/anti-forgery-field) 
+                                       :threadname (:thread (first (threadname? (:id pars)))) 
+                                       :indexlink (str "/topic/" (:topic (first (get-cata-link? (:id pars)))) "/0") 
+                                       :catalink (str "/topic/" (:topic (first (get-cata-link? (:id pars)))) "/catalog") 
+                                       :thread-id (:id pars)})) nil))))
 
 ;;webm
 
@@ -241,7 +248,12 @@
   (let [topic-id (:id (:params request))
         pdata (map get-catalog-thread (map :thid (get-catalog-threads-in-order (get-topic-id-from-topic (:id (:params request))) )))]
     (response/ok 
-      (selmer/render-file "catalog.html" {:bannedusertime (is-user-banned? (get-client-ip request) (get-topic-id-from-topic topic-id)) :banneduser (nil? (is-user-banned? (get-client-ip request) (get-topic-id-from-topic topic-id))) :pagedata pdata :topicname topic-id :topicdesc (boardinfo? topic-id) :csrf (anti-forgery/anti-forgery-field)}))))
+      (selmer/render-file "catalog.html" {:bannedusertime (is-user-banned? (get-client-ip request) (get-topic-id-from-topic topic-id)) 
+                                          :banneduser (nil? (is-user-banned? (get-client-ip request) (get-topic-id-from-topic topic-id))) 
+                                          :pagedata pdata 
+                                          :topicname topic-id 
+                                          :topicdesc (boardinfo? topic-id) 
+                                          :csrf (anti-forgery/anti-forgery-field)}))))
 
     ;;help
 (defn help-handler [request]
@@ -296,8 +308,26 @@
 
 (defn report-handler [request]
   (let [pars (:params request)]
-    (do (insert-report! (get-topic-id-from-topic (:topicid pars)) (parse-int (:threadid pars)) (parse-int (:postid pars))) (response/ok 
-     (selmer/render-file "reported.html" {:topicid (:topicid pars) :threadid (:threadid pars) :postid (:postid pars)})))))
+    (let [topicid (parse-int (get pars "topicid")) 
+          threadid (parse-int (get pars "threadid")) 
+          postid (parse-int (get pars "postid"))]
+      (do 
+        (insert-report! topicid threadid postid)
+        (response/ok
+         (selmer/render-file "reported.html" {:topicid topicid 
+                                              :threadid threadid 
+                                              :postid postid}
+                             ))))))
+
+(defn report-page-handler [request]
+  (let [pars (:params request)]
+    (selmer/render-file "reportpage.html" 
+                        {:topicid (get-topic-id-from-topic (:topicid pars)) 
+                         :topicname (:topicid pars)
+                         :threadid (parse-int (:threadid pars)) 
+                         :postid (parse-int (:postid pars))
+                         :csrf (anti-forgery/anti-forgery-field)}
+                        )))
 
 (defn admin-ban-topic-handler [request]
   (if (is-admin-authenticated request)
