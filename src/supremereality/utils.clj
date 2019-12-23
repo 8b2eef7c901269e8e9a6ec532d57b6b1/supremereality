@@ -141,7 +141,7 @@
 ;  (str/replace msg #"(([^\>\n\r\sa-zA-Z0-9]|^)|[^\>a-zA-Z0-9 ])\>([^\>\s]+)" "[quote]>$3[/quote]"))
 
 (defn parse-shorttp [msg]
-  (str/replace msg #"((>>>/)(.*)(/))" "[link]/topic/$3/[/link]>>>/$3/[/elink]"))
+  (str/replace msg #"((>>>/)(.*?)(/))" "[link]/topic/$3/[/link]>>>/$3/[/elink]"))
 
 (defn parse-newline [msg]
     (str/replace msg #"(\n)" "[br]"))

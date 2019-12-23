@@ -1,4 +1,4 @@
-(defproject supremereality "0.2.0"
+(defproject supremereality "0.2.1"
   :description "responsive imageboard software"
   :url "https://www.supremereality.us/"
   :license {:name "BSD 3 Clause"
