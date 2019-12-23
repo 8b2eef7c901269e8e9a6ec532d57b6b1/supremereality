@@ -54,9 +54,9 @@
            wrap-multipart-params
            wrap-restful-format
            wrap-floodcheck
+           wrap-exception-handling
            )
        {:port 3000
         :join? false
         :max-body 20000000})))
-;wrap-exception-handling
   ;;max-body = max POST upload size including files. 20mb default          
