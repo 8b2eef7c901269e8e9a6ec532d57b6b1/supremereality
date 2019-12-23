@@ -1,6 +1,10 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## 0.2.0 - 2019-12-23
+- Fixed Sage(no bump) functionality
+- Fixed index/paginated view report button
+
 ## 0.1.9 - 2019-12-23
 - Disabled single carrot quotes
 
