@@ -137,8 +137,8 @@
 (defn parse-shortsp [msg]
   (str/replace msg #"((\*\*)(.*)(\*\*))" "[spoiler]$3[/spoiler]"))
 
-(defn parse-shortq [msg]
-  (str/replace msg #"(([^\>\n\r\sa-zA-Z0-9]|^)|[^\>a-zA-Z0-9 ])\>([^\>\s]+)" "[quote]>$3[/quote]"))
+;(defn parse-shortq [msg]
+;  (str/replace msg #"(([^\>\n\r\sa-zA-Z0-9]|^)|[^\>a-zA-Z0-9 ])\>([^\>\s]+)" "[quote]>$3[/quote]"))
 
 (defn parse-shorttp [msg]
   (str/replace msg #"((>>>/)(.*)(/))" "[link]/topic/$3/[/link]>>>/$3/[/elink]"))
@@ -149,7 +149,7 @@
 (defn parse-quote [msg]
   (str/replace msg #">>([0-9]+)" "[link]#$1[/link]>>$1[/elink]"))
 
-(defn parse-msg [msg] (parse-url (escape-html (parse-newline (parse-quote (parse-shortsp (parse-shortr (parse-shorttp (parse-shortq msg)))))))))
+(defn parse-msg [msg] (parse-url (escape-html (parse-newline (parse-quote (parse-shortsp (parse-shortr (parse-shorttp msg))))))))
 
 (defn get-mod-pwd [reqmap]
   (get (:form-params reqmap) "modpwd"))

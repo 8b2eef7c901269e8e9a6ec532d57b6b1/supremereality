@@ -1,6 +1,9 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## 0.1.9 - 2019-12-23
+- Disabled single carrot quotes
+
 ## 0.1.8 - 2019-12-22
 - Modified help page
 - Wrap exception handling
