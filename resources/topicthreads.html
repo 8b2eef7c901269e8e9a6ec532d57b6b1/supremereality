@@ -6,38 +6,13 @@
                 <small>
                     <nav class="level">
                       <div class="level-left">
-                          <div class="level-item">
-                              <div class="dropdown is-hoverable">
-
-                                  <div class="dropdown-trigger">
-                                      <span class="has-text-warning">▶ </span>
-                                  </div>
-            
-                                  <div class="dropdown-menu" id="dropdown-menu" role="menu">
-            
-                                    <div class="dropdown-content">
-            
-                                      <a href="/report/{{topicname}}/{{x.thid}}/{{x.pid}}" class="dropdown-item">
-                                        Report
-                                      </a>
-            
-                                      <a href="/delete/{{x.pid}}" class="dropdown-item">
-                                        Delete Post
-                                      </a>
-            
-                                    </div>
-            
-                                  </div>
-            
-                                </div>
-                          </div>
                           {% if forloop.first %}
                           <div class="level-item">
-                          {% if x.newtop %}
-                          <span class="has-text-weight-bold">♨ {{x.thread}} </span>
-                          {% else %}
-                          <span class="has-text-weight-bold">{{x.thread}} </span>
-                          {% endif %}
+                            {% if x.newtop %}
+                            <span class="has-text-weight-bold">♨ {{x.thread}} </span>
+                            {% else %}
+                            <span class="has-text-weight-bold">{{x.thread}} </span>
+                            {% endif %}
                           </div>
                           {% endif %}
                           <div class="level-item">{{x.post_time|date:shortDateTime}}</div>
@@ -97,6 +72,15 @@
                       {% safe %}
                         {{x.msg|replace:[quote]:"<div class='padd3 has-text-success has-text-weight-bold has-background-grey-dark'>"|replace:[/quote]:"</div>"|replace:[red]:"<span class='has-text-danger has-text-weight-bold'>"|replace:[/red]:"</span>"|replace:[spoiler]:"<span class='spoiler'>"|replace:[/spoiler]:"</span>"|replace:[link]:"<a class='has-text-warning' href='"|replace:[/link]:"'>"|replace:[/elink]:"</a>"|replace:[br]:"<br>"}}
                       {% endsafe %}
+                      <br>
+                      <span class="is-pulled-right is-size-7 is-italic">
+                        <a class="has-text-light" title="report post" href="/report/{{topicname}}/{{thread-id}}/{{x.pid}}" target="_blank">
+                          report
+                        </a>
+                        <a class="has-text-light" title="delete post" href="/delete/{{x.pid}}">
+                          delete
+                        </a>
+                      </span>
                     </p>
                   </div>
                 </article>
