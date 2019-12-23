@@ -1,6 +1,10 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## 0.1.8 - 2019-12-22
+- Modified help page
+- Wrap exception handling
+
 ## 0.1.7 - 2019-12-22
 - Software no longer considered beta test
 - Reports now are automatically deleted after 30 days
