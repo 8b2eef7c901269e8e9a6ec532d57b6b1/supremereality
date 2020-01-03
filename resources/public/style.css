@@ -108,6 +108,8 @@ hr {
 body {
     background-color: hsl(0, 0%, 7%);
     color: hsl(0, 0%, 98%);
+    width: 100%;
+    height: 100%;
 }
 
 label {
@@ -132,3 +134,21 @@ p.subtitle {
 
 .grow { transition: all .3s ease-out; transform-origin: left top; }
 .grow:hover { transform: scale(1.1); }
+
+iframe {
+    overflow: hidden !important;
+    width: 100%;
+    min-height: 275px;
+}
+
+.preview {
+    display: none;
+}
+
+.qlink:hover + .preview {
+    display: block;
+}
+
+.prehtml {
+    background-color: hsl(0, 0%, 7%);
+}

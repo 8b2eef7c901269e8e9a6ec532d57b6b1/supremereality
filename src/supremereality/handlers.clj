@@ -429,3 +429,9 @@
     (if (is-owner-authenticated request)
       (do (ownermodpassword! (hashers/derive (get pars "omodpassword")) (get-owner-topic-auth request)) (end-session-auth (response/see-other "/topics/admin")))
       (response/see-other "/topics/admin"))))
+
+(defn serve-preview-handler [request]
+  (let [pars (:params request) pid (:pid (:params request))]
+    (let [tdata (filt-thread (preview-post? pid))]
+    (response/ok (selmer/render-file "preview.html" {:tdata tdata})))
+    ))

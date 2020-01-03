@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html class="prehtml">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Post Preview</title>
+        {% style "/bulma.min.css" %}
+        {% style "/style.css" %}
+        {% style "/video-js.css" %}
+        <link rel='shortcut icon' type="image/png" href='/favicon.png' />
+    </head>
+    <body>
+{% for x in tdata %}
+<div class="padd2">
+    <div class="content">
+        <p>
+          <small>
+          <span class="has-text-weight-bold"> {{x.ipaddr|hash:sha512|abbr-ellipsis:""|abbreviate:7}} </span> {{x.post_time|date:shortDateTime}} 
+          </small>
+        </p>
+      </div>
+      {% if any 
+        x.attachmentonetype|not-empty 
+        x.attachmentonewebm|not-empty 
+        x.attachmentonepdf|not-empty 
+        x.attachmenttwotype|not-empty 
+        x.attachmenttwowebm|not-empty 
+        x.attachmenttwopdf|not-empty 
+        x.attachmentthreetype|not-empty 
+        x.attachmentthreewebm|not-empty 
+        x.attachmentthreepdf|not-empty %}
+    <div class="columns">
+        <div class="column is-narrow">
+            {% if x.attachmentonetype|not-empty %}
+            {% if x.spoilered %}<p class="has-text-weight-bold has-text-info">content warning (image)</p>{% endif %}
+            <figure class="simg1{% if x.spoilered %} spoilercontainer{% endif %}">
+                <img class="{% if x.spoilered %}spoilerimg{% endif %}" src="/thumbs/0/{{x.pid}}.{{x.attachmentonetype}}" alt="Image">
+            </figure>
+           {% endif %}
+           {% if x.attachmentonewebm|not-empty %}
+           <figure class="image">
+               <video class="video-js vjs-theme-sea" width="320px" data-setup='{}' controls loop alt="Webm" poster="/coffee.png" preload="none">
+                  <source src="/webm/0/{{x.pid}}.webm" type="video/webm" /> 
+               </video>
+           </figure>
+          {% endif %}
+          {% if x.attachmentonepdf|not-empty %}
+          <figure class="image simg1">
+            <img src="/coffee.png" alt="pdf">
+          </figure>
+         {% endif %}
+        </div>
+        <div class="column is-narrow">
+            {% if x.attachmenttwotype|not-empty %}
+            {% if x.spoilered %}<p class="has-text-weight-bold has-text-info">content warning (image)</p>{% endif %}
+            <figure class="simg2{% if x.spoilered %} spoilercontainer{% endif %}">
+                <img class="{% if x.spoilered %}spoilerimg{% endif %}" src="/thumbs/1/{{x.pid}}.{{x.attachmenttwotype}}" alt="Image">
+            </figure>
+           {% endif %}
+           {% if x.attachmenttwowebm|not-empty %}
+           <figure class="image">
+             <video class="video-js vjs-theme-sea" width="320px" data-setup='{}' controls loop alt="Webm" poster="/coffee.png" preload="none">
+                <source src="/webm/1/{{x.pid}}.webm" type="video/webm" /> 
+             </video>
+           </figure>
+          {% endif %}
+          {% if x.attachmenttwopdf|not-empty %}
+          <figure class="image simg2">
+            <img src="/coffee.png" alt="pdf">
+          </figure>
+         {% endif %}
+        </div>
+        <div class="column is-narrow">
+            {% if x.attachmentthreetype|not-empty %}
+            {% if x.spoilered %}<p class="has-text-weight-bold has-text-info">content warning (image)</p>{% endif %}
+            <figure class="simg3{% if x.spoilered %} spoilercontainer{% endif %}">
+                  <img class="{% if x.spoilered %}spoilerimg{% endif %}" src="/thumbs/2/{{x.pid}}.{{x.attachmentthreetype}}" alt="Image">
+            </figure>
+           {% endif %}
+           {% if x.attachmentthreewebm|not-empty %}
+           <figure class="image">
+            <video class="video-js vjs-theme-sea" width="320px" data-setup='{}' controls loop alt="Webm" poster="/coffee.png" preload="none">
+               <source src="/webm/2/{{x.pid}}.webm" type="video/webm" /> 
+            </video>
+          </figure>
+          {% endif %}
+          {% if x.attachmentthreepdf|not-empty %}
+          <figure class="image simg3">
+            <img src="/coffee.png" alt="pdf">
+          </figure>
+         {% endif %}
+        </div>
+      </div>
+      {% endif %}
+      <article>
+        <div class="content">
+          <p>
+            {% safe %}
+            {{x.msg|replace:[quote]:"<div class='padd3 has-text-success has-text-weight-bold has-background-grey-dark'>"|replace:[/quote]:"</div>"|replace:[red]:"<span class='has-text-danger has-text-weight-bold'>"|replace:[/red]:"</span>"|replace:[spoiler]:"<span class='spoiler'>"|replace:[/spoiler]:"</span>"|replace:[link]:"<a class='has-text-warning' href='"|replace:[/link]:"'>"|replace:[/elink]:"</a>"|replace:[br]:"<br>"|replace:[qlink]:"<a class='has-text-warning qlink' href='"|replace:[/qlink]:"'>"|replace:[/qelink]:"</a>"|replace:[preview]:"<span class='is-hidden'>"|replace:[/preview]:"</span>"|abbreviate:1500}}
+            {% endsafe %}
+            <br>
+          </p>
+        </div>
+      </article>
+{% endfor %}
+</div>
+</body>
+</htmlclass="prebody"> 

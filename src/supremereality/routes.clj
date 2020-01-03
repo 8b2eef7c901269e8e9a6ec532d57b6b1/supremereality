@@ -55,5 +55,6 @@
   (compojure/GET "/owner" request owner-handler)
   (compojure/POST "/owner/updatepassword" request owner-password-change-handler)
   (compojure/POST "/owner/updatemodpassword" request owner-mod-password-change-handler)
+  (compojure/GET "/preview/:pid{[0-9]+}" request serve-preview-handler)
   (route/resources "/")
   (route/not-found nfhandler))

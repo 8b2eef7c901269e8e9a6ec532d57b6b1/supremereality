@@ -454,3 +454,13 @@ limit 8"]))
 
 (defn mod-spoilerpost! [postid]
   (jdbc/execute! db-spec ["update posts set spoilered=true where pid=?" postid]))
+
+(defn preview-post? [pid] 
+  (jdbc/query db-spec ["select post_time,  
+pid,
+msg, 
+attachmentonetype, 
+attachmenttwotype, 
+attachmentthreetype, 
+spoilered
+from posts where pid = ?" (parse-int pid)]))
