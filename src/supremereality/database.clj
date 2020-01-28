@@ -91,7 +91,7 @@
                                 BEGIN
                                     update threads set locked=true where thid in (select z.thid from 
                                     (select threads.thid, count(posts.pid) pcnt from threads, posts where posts.thid = threads.thid and threads.locked <> true group by threads.thid) z where z.pcnt > 500);
-                                    DELETE FROM THREADS WHERE THREAD_TIME < NOW() - INTERVAL '14 DAYS' and stickied <> true; 
+                                    DELETE FROM THREADS WHERE THREAD_TIME < NOW() - INTERVAL '60 DAYS' and stickied <> true; 
                                     DELETE FROM reports WHERE report_time < NOW () - INTERVAL '30 DAYS';
                                     RETURN NEW;
                                 END;

@@ -1,12 +1,14 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
-## 0.2.2 - 2020-01-03
+## 0.2.2 - 2020-01-27
 - Fixed quantifier issue with red text and spoilers
 - Removed topic links
 - Changed backlinks from >> to ##
 - Implemented post preview on hover of backlink
 - Fixed deprecated issue with uberjar aot compilation
+- Changed autodelete threshold of threads to 60 days
+- Updated README.md (copyright)
 
 ## 0.2.1 - 2019-12-23
 - Fixed quantifier issue with topic links

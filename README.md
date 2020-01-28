@@ -283,7 +283,7 @@ You will have to do a source control merge at this point between my updates and 
 
 # License
 
-Copyright © 2019 Jared Schreiber
+Copyright © 2019-2020 Jared Schreiber
 
 This program and the accompanying materials are made available under the
 terms of the 3-Clause BSD license which is available at
