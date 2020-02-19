@@ -1,7 +1,7 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
-## 0.2.3 - 2020-????
+## 0.2.3 - 2020-02-18
 - Fixed mistake on readme systemd install instructions
 - Fixed problem with abbreviation in index/catalog view causing certain tiles not to render
 - Changed color scheme to red
