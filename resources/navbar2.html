@@ -1,15 +1,15 @@
 {% extends "navbar.html" %}
 {% block nav2 %}
-      <a class="navbar-item has-text-warning" href="#bottom">
+      <a class="navbar-item has-text-danger" href="#bottom">
         ↓
       </a>
-      <a class="navbar-item has-text-warning" href="#top">
+      <a class="navbar-item has-text-danger" href="#top">
         ↑
       </a>
-      <a class="navbar-item has-text-warning" href="{{indexlink|default-if-empty:"0"}}">
+      <a class="navbar-item has-text-danger" href="{{indexlink|default-if-empty:"0"}}">
           Index
       </a>
-      <a class="navbar-item has-text-warning" href="{{catalink|default-if-empty:"catalog"}}">
+      <a class="navbar-item has-text-danger" href="{{catalink|default-if-empty:"catalog"}}">
         Catalog
       </a>
 {% endblock %}

@@ -32,7 +32,7 @@
     <div class="columns">
         <div class="column is-narrow">
             {% if x.attachmentonetype|not-empty %}
-            {% if x.spoilered %}<p class="has-text-weight-bold has-text-info">content warning (image)</p>{% endif %}
+            {% if x.spoilered %}<p class="has-text-weight-bold has-text-danger">content warning (image)</p>{% endif %}
             <figure class="simg1{% if x.spoilered %} spoilercontainer{% endif %}">
                 <img class="{% if x.spoilered %}spoilerimg{% endif %}" src="/thumbs/0/{{x.pid}}.{{x.attachmentonetype}}" alt="Image">
             </figure>
@@ -52,7 +52,7 @@
         </div>
         <div class="column is-narrow">
             {% if x.attachmenttwotype|not-empty %}
-            {% if x.spoilered %}<p class="has-text-weight-bold has-text-info">content warning (image)</p>{% endif %}
+            {% if x.spoilered %}<p class="has-text-weight-bold has-text-danger">content warning (image)</p>{% endif %}
             <figure class="simg2{% if x.spoilered %} spoilercontainer{% endif %}">
                 <img class="{% if x.spoilered %}spoilerimg{% endif %}" src="/thumbs/1/{{x.pid}}.{{x.attachmenttwotype}}" alt="Image">
             </figure>
@@ -72,7 +72,7 @@
         </div>
         <div class="column is-narrow">
             {% if x.attachmentthreetype|not-empty %}
-            {% if x.spoilered %}<p class="has-text-weight-bold has-text-info">content warning (image)</p>{% endif %}
+            {% if x.spoilered %}<p class="has-text-weight-bold has-text-danger">content warning (image)</p>{% endif %}
             <figure class="simg3{% if x.spoilered %} spoilercontainer{% endif %}">
                   <img class="{% if x.spoilered %}spoilerimg{% endif %}" src="/thumbs/2/{{x.pid}}.{{x.attachmentthreetype}}" alt="Image">
             </figure>
@@ -96,7 +96,7 @@
         <div class="content">
           <p>
             {% safe %}
-            {{x.msg|replace:[quote]:"<div class='padd3 has-text-success has-text-weight-bold has-background-grey-dark'>"|replace:[/quote]:"</div>"|replace:[red]:"<span class='has-text-danger has-text-weight-bold'>"|replace:[/red]:"</span>"|replace:[spoiler]:"<span class='spoiler'>"|replace:[/spoiler]:"</span>"|replace:[link]:"<a class='has-text-warning' href='"|replace:[/link]:"'>"|replace:[/elink]:"</a>"|replace:[br]:"<br>"|replace:[qlink]:"<a class='has-text-warning qlink' href='"|replace:[/qlink]:"'>"|replace:[/qelink]:"</a>"|replace:[preview]:"<span class='is-hidden'>"|replace:[/preview]:"</span>"|abbreviate:1500}}
+            {{x.msg|replace:[quote]:"<div class='padd3 has-text-success has-text-weight-bold has-background-grey-dark'>"|replace:[/quote]:"</div>"|replace:[red]:"<span class='has-text-danger has-text-weight-bold'>"|replace:[/red]:"</span>"|replace:[spoiler]:"<span class='spoiler'>"|replace:[/spoiler]:"</span>"|replace:[link]:"<a class='has-text-danger' href='"|replace:[/link]:"'>"|replace:[/elink]:"</a>"|replace:[br]:"<br>"|replace:[qlink]:"<a class='has-text-danger qlink' href='"|replace:[/qlink]:"'>"|replace:[/qelink]:"</a>"|replace:[preview]:"<span class='is-hidden'>"|replace:[/preview]:"</span>"|abbreviate:1500}}
             {% endsafe %}
             <br>
           </p>

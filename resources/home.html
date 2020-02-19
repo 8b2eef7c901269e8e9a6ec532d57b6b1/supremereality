@@ -5,9 +5,9 @@
   <div class="columns is-centered">
       <div class="column is-half">
           <section class="section">
-              <article class="message is-warning">
+              <article class="message is-danger">
                   <div class="message-header">
-                    <p>News</p>
+                    <p class="has-text-dark">News</p>
                   </div>
                   <div class="message-body">
                         <small>
@@ -17,9 +17,9 @@
                         </small>
                   </div>
               </article>
-            <article class="message is-warning">
+            <article class="message is-danger">
                 <div class="message-header">
-                  <p>Topics [SFW]</p>
+                  <p class="has-text-dark">Topics [SFW]</p>
                 </div>
                 <div class="message-body">
                     <nav class="breadcrumb" aria-label="breadcrumbs">
@@ -31,9 +31,9 @@
                       </nav>
                 </div>
             </article>
-              <article class="message is-warning">
+              <article class="message is-danger">
                   <div class="message-header">
-                    <p>Recent Posts [SFW]</p>
+                    <p class="has-text-dark">Recent Posts</p>
                   </div>
                   <div class="message-body">
                     <div class="has-text-centered">
@@ -52,7 +52,7 @@
                                   <strong>{{x.thread}}</strong>: 
                                       <small>
                                         {% safe %}
-                                          {{x.msg|replace:[quote]:"<div class='padd3 has-text-success has-text-weight-bold has-background-grey-dark'>"|replace:[/quote]:"</div>"|replace:[red]:"<span class='has-text-danger has-text-weight-bold'>"|replace:[/red]:"</span>"|replace:[spoiler]:"<span class='spoiler'>"|replace:[/spoiler]:"</span>"|replace:[link]:"<a class='has-text-warning' href='"|replace:[/link]:"'>"|replace:[/elink]:"</a>"|replace:[br]:"<br>"|replace:[qlink]:"<a class='has-text-warning qlink' href='"|replace:[/qlink]:"'>"|replace:[/qelink]:"</a>"|replace:[preview]:"<span class='is-hidden'>"|replace:[/preview]:"</span>"|abbreviate:200}}
+                                          {{x.msg|replace:[quote]:"<div class='padd3 has-text-success has-text-weight-bold has-background-grey-dark'>"|replace:[/quote]:"</div>"|replace:[red]:"<span class='has-text-danger has-text-weight-bold'>"|replace:[/red]:"</span>"|replace:[spoiler]:"<span class='spoiler'>"|replace:[/spoiler]:"</span>"|replace:[link]:"<a class='has-text-danger' href='"|replace:[/link]:"'>"|replace:[/elink]:"</a>"|replace:[br]:"<br>"|replace:[qlink]:"<a class='has-text-danger qlink' href='"|replace:[/qlink]:"'>"|replace:[/qelink]:"</a>"|replace:[preview]:"<span class='is-hidden'>"|replace:[/preview]:"</span>"|abbreviate:200}}
                                         {% endsafe %}
                                       </small>
                                 </div>
@@ -62,9 +62,9 @@
                     </div>
                   </div>
               </article>
-                <article class="message is-warning">
+                <article class="message is-danger">
                     <div class="message-header">
-                      <p>Stats</p>
+                      <p class="has-text-dark">Stats</p>
                     </div>
                     <div class="message-body">
                         <nav class="level">

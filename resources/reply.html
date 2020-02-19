@@ -4,7 +4,7 @@
          <form action="/thread/reply" method="post" enctype="multipart/form-data" id="replyform">
             <div class="container">
                     <div class="field">
-                            <label class="label has-text-white-bis">Reply</label>
+                            <label class="label has-text-danger">Reply</label>
                             <div class="control">
                                 <textarea class="textarea" name="threadbody" maxlength=5000 id="replybody" required></textarea>
                             </div>
@@ -96,7 +96,7 @@
                     <label class="checkbox">
                             <br>
                             <input type="checkbox" required checked>
-                            I agree to the <a href="/terms" target="_blank">terms and conditions</a>
+                            I agree to the <a class="has-text-danger has-text-bold uline" href="/terms" target="_blank">terms and conditions</a>
                     </label>
                     
                     <input type="hidden" name="thid" value="{{thread-id}}">
@@ -105,13 +105,13 @@
                     <div class="field is-grouped is-grouped-centered" id="pbutton">
                     <p class="control">
                         <br>
-                            <button class="button is-warning">
-                              <strong>Post</strong>
+                            <button class="button is-danger has-text-weight-bold">
+                              <span class="has-text-dark">Post</span>
                             </button>
                     </p></div>
                     <div class="content has-text-centered" id="pbar">
                         <br>
-                        <progress class="progress is-small is-warning" max="100">15%</progress>
+                        <progress class="progress is-small is-danger" max="100">15%</progress>
                         <p>Uploading...</p>
                     </div>
                     <script>

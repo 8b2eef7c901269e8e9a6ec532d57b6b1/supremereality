@@ -38,7 +38,7 @@
 }
 
 .spoilercontainer {
-    border: 2px dashed hsl(204, 86%, 53%);
+    border: 2px dashed hsl(348, 100%, 61%);
 }
 
 .spoilercontainer:hover {
@@ -68,20 +68,20 @@
 }
 
 .nbar {
-    border-bottom: 1px solid hsl(48, 100%, 67%);
+    border-bottom: 1px solid hsl(348, 100%, 61%);
     background-color: hsl(0, 0%, 14%);
 }
 
 hr {
-    border-color: hsl(48, 100%, 67%);
-    background-color: hsl(48, 100%, 67%);
-    color: hsl(48, 100%, 67%);
+    border-color: hsl(348, 100%, 61%);
+    background-color: hsl(348, 100%, 61%);
+    color: hsl(348, 100%, 61%);
     margin-left: 9px;
     margin-right: 9px;
 }
 
 .bord {
-    border: 1px dashed hsl(48, 100%, 67%);
+    border: 1px dashed hsl(348, 100%, 61%);
 }
 
 .bord2 {
@@ -113,23 +113,23 @@ body {
 }
 
 label {
-    color: hsl(0, 0%, 98%) !important;
+    color: hsl(348, 100%, 61%) !important;
 }
 
 h3.title {
-    color: hsl(0, 0%, 98%) !important;
+    color: hsl(348, 100%, 61%) !important;
 }
 
 h2.title {
-    color: hsl(0, 0%, 98%) !important;
+    color: hsl(348, 100%, 61%) !important;
 }
 
 h1.title {
-    color: hsl(0, 0%, 98%) !important;
+    color: hsl(348, 100%, 61%) !important;
 }
 
 p.subtitle {
-    color: hsl(0, 0%, 98%) !important;
+    color: hsl(348, 100%, 61%) !important;
 }
 
 .grow { transition: all .3s ease-out; transform-origin: left top; }
@@ -151,4 +151,12 @@ iframe {
 
 .prehtml {
     background-color: hsl(0, 0%, 7%);
+}
+
+.uline {
+    text-decoration: underline;
+}
+
+.ulineh:hover {
+    text-decoration: underline;
 }

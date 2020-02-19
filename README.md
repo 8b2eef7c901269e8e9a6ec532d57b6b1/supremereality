@@ -125,7 +125,7 @@ User=sampleuser
 WorkingDirectory=/home/sampleuser/workspace
 #path to executable. 
 #executable is a bash script which calls jar file
-ExecStart=/home/sampleuser/supremereality/target/supremereality-0.1.3-standalone.jar
+ExecStart=/home/sampleuser/startscript
 SuccessExitStatus=143
 TimeoutStopSec=10
 Restart=on-failure

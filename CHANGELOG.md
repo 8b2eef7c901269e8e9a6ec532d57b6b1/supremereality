@@ -1,6 +1,12 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## 0.2.3 - 2020-????
+- Fixed mistake on readme systemd install instructions
+- Fixed problem with abbreviation in index/catalog view causing certain tiles not to render
+- Changed color scheme to red
+- Fixed problem with individual post links not going far enough up page
+
 ## 0.2.2 - 2020-01-27
 - Fixed quantifier issue with red text and spoilers
 - Removed topic links
