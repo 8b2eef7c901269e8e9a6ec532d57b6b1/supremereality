@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 - Fixed problem with abbreviation in index/catalog view causing certain tiles not to render
 - Changed color scheme to red
 - Fixed problem with individual post links not going far enough up page
+- Fixed bug where quotes caused recent posts to not show up
 
 ## 0.2.2 - 2020-01-27
 - Fixed quantifier issue with red text and spoilers
