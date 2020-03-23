@@ -19,6 +19,8 @@ Supreme Reality is an imageboard, which is a type of anonymous internet forum ba
 That's it. For future deployments you can take off the --build flag if you didn't change anything and don't need to rebuild the container.
 To stop the app, type 'docker-compose down'.
 
+NOTE: No reverse-proxy/nginx, letsencrypt, etc. are provided with the docker setup. You are expected to provide your own.
+
 # Manual Installation
 
 ## Pre-installation
