@@ -3,9 +3,10 @@
 ;; Database connection info (change the password)
 
 (def db-spec {:dbtype "postgresql"
-    :dbname "srdb"
-    :user "sruser"
-    :password "srpass"})
+              :dbname "srdb"
+              :host "172.20.0.2" ;;comment this line out on non-docker/manual installations
+              :user "sruser"
+              :password "srpass"})
 
 ;;db functions
 
@@ -91,7 +92,7 @@
                                 BEGIN
                                     update threads set locked=true where thid in (select z.thid from 
                                     (select threads.thid, count(posts.pid) pcnt from threads, posts where posts.thid = threads.thid and threads.locked <> true group by threads.thid) z where z.pcnt > 500);
-                                    DELETE FROM THREADS WHERE THREAD_TIME < NOW() - INTERVAL '60 DAYS' and stickied <> true; 
+                                    Update threads set locked=true where THREAD_TIME < NOW() - INTERVAL '6 MONTHS' and stickied <> true; 
                                     DELETE FROM reports WHERE report_time < NOW () - INTERVAL '30 DAYS';
                                     RETURN NEW;
                                 END;
@@ -128,7 +129,7 @@ and posts.weight is not null
 and posts.weight > 0
 group by threads.thid
 order by max (post_time) desc
-offset 350)" (str tid)]))
+offset 50)" (str tid)]))
 
 (defn insert-new-thread
   ([threadname topicname msgbody ipaddr spoiled wgt]

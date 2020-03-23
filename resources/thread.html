@@ -12,7 +12,7 @@
     <div class="content">
         <p>
           <small>
-          <span class="has-text-weight-bold"> {{x.ipaddr|hash:sha512|abbr-ellipsis:""|abbreviate:7}} </span> {{x.post_time|date:shortDateTime}} <a class='has-text-danger' onclick="document.getElementById('replybody').value += '##{{x.pid}}'" href="#bottom"><span class="has-text-weight-bold">#{{x.pid}}</span></a>
+          {{x.post_time|date:shortDateTime}} <a class='has-text-danger' onclick="document.getElementById('replybody').value += '##{{x.pid}}'" href="#bottom"><span class="has-text-weight-bold">No. {{x.pid}}</span></a>
           </small>
         </p>
       </div>

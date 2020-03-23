@@ -1,0 +1,30 @@
+version: '3'
+services:
+  db:
+    image: "postgres:12"
+    container_name: "sr_postgres"
+    ports:
+      - "5432:5432"
+    environment: 
+        - POSTGRES_USER=sruser
+        - POSTGRES_PASSWORD=srpass
+        - POSTGRES_DB=srdb
+    networks:
+        supremereality_net:
+            ipv4_address: 172.20.0.2
+  web:
+    build: .
+    command: java -jar target/supremereality-0.2.4-standalone.jar
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    networks:
+        supremereality_net:
+            ipv4_address: 172.20.0.3
+networks:
+    supremereality_net:
+        ipam:
+            driver: default
+            config:
+                - subnet: 172.20.0.0/16

@@ -8,7 +8,18 @@ DEMO SITE: https://www.supremereality.us/
 
 Supreme Reality is an imageboard, which is a type of anonymous internet forum based on the sharing of images and text. 
 
-# Installation
+# Automatic Installation (Containerized)
+
+## This requires you to install docker and docker-compose
+
+1. Clone this repo into a folder on the machine
+2. Naviate to that folder
+3. type 'docker-compose up --build -d'
+
+That's it. For future deployments you can take off the --build flag if you didn't change anything and don't need to rebuild the container.
+To stop the app, type 'docker-compose down'.
+
+# Manual Installation
 
 ## Pre-installation
 
@@ -67,11 +78,13 @@ At the top of the file: src/database.clj, the default setup looks like this:
 ```
 (def db-spec {:dbtype "postgresql"
     :dbname "srdb"
+    ;; :host "172.20.0.2" ;;comment this line out on non-docker/manual installations
     :user "sruser"
     :password "srpass"})
 ```
 
-You should change the schema, user, and password to whatever you've set it up to be in Postgres. 
+You should change the schema, user, and password to whatever you've set it up to be in Postgres. Put a ; semicolon in front of the :host parameter to comment it out.
+This exists for docker installs only.
 I'm not going to go over how to set up Postgres here as there are plenty of guides online on how to do this (use google).
 
 ### UUID Seed

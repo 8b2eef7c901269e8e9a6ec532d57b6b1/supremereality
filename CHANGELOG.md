@@ -1,6 +1,13 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## 0.2.4 - 2020-03-22
+- Set bump to be off by default as per bug #1
+- Reduced catalog limit to 50 per board (feel free to customize if needed)
+- Changed thread TTL mechanism: instead of being deleted, threads are now auto-locked if older than 6 months.
+- Removed unique auto-tripcodes
+- Added containerization (docker/docker-compose)
+
 ## 0.2.3 - 2020-02-18
 - Fixed mistake on readme systemd install instructions
 - Fixed problem with abbreviation in index/catalog view causing certain tiles not to render
