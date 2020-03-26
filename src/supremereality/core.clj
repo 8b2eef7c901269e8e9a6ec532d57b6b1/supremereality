@@ -24,9 +24,6 @@
            java.net.URLEncoder
            java.io.ByteArrayInputStream))
 
-;;UUID seed (gives your users a unique id, prefer a prime number)
-(def uuid-seed 15485857)
-
 ;;stateful memory keeps track of flood IP address
 (def floodlist (atom {}))
 
