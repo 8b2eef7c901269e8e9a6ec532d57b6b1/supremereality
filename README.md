@@ -95,10 +95,10 @@ Also Under src/core.clj you will a line that says
 
 ```
 ;;time in between posts (in seconds)
-(def time2flood 20)
+(def time2flood 5)
 ```
 
-This is the time in seconds your users have to wait between posts globally. The default is 20 seconds.
+This is the time in seconds your users have to wait between posts globally. The default is 5 seconds.
 This is usually ok, but if you are having problems with bots/spammers you may want to set it higher.
 
 ### Upload Limit
