@@ -89,18 +89,6 @@ You should change the schema, user, and password to whatever you've set it up to
 This exists for docker installs only.
 I'm not going to go over how to set up Postgres here as there are plenty of guides online on how to do this (use google).
 
-### UUID Seed
-
-Under src/core.clj you will a line that says
-
-```
-;;UUID seed (gives your users a unique id, prefer a prime number)
-(def uuid-seed 15485857)
-```
-
-This is a seed that gives your users (mostly) unique per-user, per-thread ids.
-Please change this from the default to any other number, preferably prime number.
-
 ### Flood protection
 
 Also Under src/core.clj you will a line that says

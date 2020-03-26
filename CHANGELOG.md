@@ -7,7 +7,8 @@ All notable changes to this project will be documented in this file.
 - Changed thread TTL mechanism: instead of being deleted, threads are now auto-locked if older than 6 months.
 - Removed unique auto-tripcodes
 - Added containerization (docker/docker-compose)
-- added 120 second thread page auto-refresh
+- Added 120 second thread page auto-refresh
+- Changed flood time limit to 5 seconds, down from 20
 
 ## 0.2.3 - 2020-02-18
 - Fixed mistake on readme systemd install instructions

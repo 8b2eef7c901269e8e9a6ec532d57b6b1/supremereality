@@ -31,7 +31,7 @@
 (def floodlist (atom {}))
 
 ;;time in between posts (in seconds)
-(def time2flood 20)
+(def time2flood 5)
 
 (load "utils")
 (load "database")
