@@ -223,7 +223,7 @@ offset 50)" (str tid)]))
 
 (defn thumbimg2? [x] (jdbc/query db-spec ["SELECT attachmentthreethumb d3img, attachmentthreetype d3type from posts where pid=? and attachmentthreethumb is not null" x]))
 
-(defn thread? [x] (jdbc/query db-spec ["select post_time, pid, msg, ?*?||ipaddr ipaddr, attachmentonetype, attachmenttwotype, attachmentthreetype, spoilered, COALESCE(weight,0) qscore from posts where thid = ? order by pid" uuid-seed (parse-int x) (parse-int x)]))
+(defn thread? [x] (jdbc/query db-spec ["select post_time, pid, msg, attachmentonetype, attachmenttwotype, attachmentthreetype, spoilered, COALESCE(weight,0) qscore from posts where thid = ? order by pid" (parse-int x)]))
 
 (defn threadname? [x] (jdbc/query db-spec ["select thread from threads where thid = ?" (parse-int x)]))
 
