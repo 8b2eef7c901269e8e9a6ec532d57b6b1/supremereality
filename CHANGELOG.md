@@ -1,7 +1,7 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
-## 0.2.4 - 2020-03-25
+## 0.2.4 - 2020-03-27
 - Set bump to be off by default as per bug #1
 - Reduced catalog limit to 50 per board (feel free to customize if needed)
 - Changed thread TTL mechanism: instead of being deleted, threads are now auto-locked if older than 6 months.
@@ -9,6 +9,7 @@ All notable changes to this project will be documented in this file.
 - Added containerization (docker/docker-compose)
 - Added 120 second thread page auto-refresh
 - Changed flood time limit to 5 seconds, down from 20
+- Changed thread order so locked threads no longer sink
 
 ## 0.2.3 - 2020-02-18
 - Fixed mistake on readme systemd install instructions
