@@ -1,6 +1,10 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## 0.2.5 - 2020-06-24
+- Removed autorefresh feature
+- Updated Jquery datatables (security)
+
 ## 0.2.4 - 2020-03-25
 - Set bump to be off by default as per bug #1
 - Reduced catalog limit to 50 per board (feel free to customize if needed)

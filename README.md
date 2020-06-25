@@ -4,8 +4,6 @@ An imageboard written using Clojure, Javascript, Bulma.css and PostgreSQL.
 
 # Usage
 
-DEMO SITE: https://www.supremereality.us/
-
 Supreme Reality is an imageboard, which is a type of anonymous internet forum based on the sharing of images and text. 
 
 # Automatic Installation (Containerized)

@@ -118,26 +118,6 @@
 {% endfor %}
 <a name="bottom"></a>
 <hr>
-<div style="padding-left:25px;" >
-  <input type="checkbox" id="refreshpagecheckbox" checked> <small>refresh (<span id="refreshpagespan">120</span>)</small>
-  <script>
-    var countdown = 120;
-    function countzero (){
-      if (document.getElementById('refreshpagecheckbox').checked 
-      && document.getElementById("replybody").value == ''
-      && document.getElementById("replyfile1").files.length === 0
-      && document.getElementById("replyfile2").files.length === 0
-      && document.getElementById("replyfile3").files.length === 0) {
-        countdown--;
-        document.getElementById('refreshpagespan').innerHTML=countdown;
-      }
-      if (countdown <= 0) {
-        location.reload(true);
-      }
-    }
-    setInterval(countzero, 1000);
-  </script>
-</div>
 <br><br><br>
 {% if banneduser %}
   {% if not threadlocked %}
